@@ -15,7 +15,7 @@ public class LanguageInterpreter {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       System.out.println("Hi");
+       System.out.println("Food.");
        // THIS COMENTARY
     }
     
