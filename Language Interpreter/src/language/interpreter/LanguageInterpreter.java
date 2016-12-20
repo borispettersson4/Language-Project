@@ -18,13 +18,26 @@ public class LanguageInterpreter {
     public static void main(String[] args) 
     {
        Identifier aElement = new Identifier();
-        
+       
        Scanner input = new Scanner(System.in);    
        System.out.println("Enter a variable name");
        String aString = input.nextLine();
        aElement.setBody(aString);
+       
+ 
+       if (aString != null){
+           aString = " ";
+           do{
+           System.out.println("You've pressed enter, please try inserting a valid variable name: ");
+           aString = input.nextLine();
+           aElement.setBody(aString);
+           }while(aString == " ");
+       }
+        
+       
+               
        if(aElement.isVariable()) {
-           System.out.println("This is a variable!");
+          System.out.println("This is a variable!");
        if(aElement.variableType() == 1)
            System.out.println("This is an Integer");
        else if(aElement.variableType() == 2)
@@ -34,9 +47,9 @@ public class LanguageInterpreter {
        }
        else 
            System.out.println("This is not a variable");
-       
-       System.out.println("You've entered : " + aElement.getBody());
-       
-    }
         
+       //if(aString != null)
+        //System.out.println("you've netered the enter key");
+        System.out.println("You've entered : " + aElement.getBody());
+    }      
 }
