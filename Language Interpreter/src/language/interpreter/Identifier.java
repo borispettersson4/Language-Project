@@ -9,7 +9,7 @@ package language.interpreter;
 /**
  *___________________________________________________________________________________
  *                                                                                                                                               
- *             Boris M. Ruiz Pettersson    |      Jorge Maldonado      
+ *             Boris M. Ruiz Pettersson    |      Jorge E. Maldonado Fonrodona     
  * 
  *                                  CECS 4200 - 08                                                                                     
  *                                                                                                                  
@@ -165,5 +165,66 @@ public class Identifier {
            x = true;
        return x;
    }
+   
+   public boolean isPrint (){
+       boolean x = false;
+       if (body.contains("PRINT")||body.contains("print") || body.contains("Print")|| body.contains("pRINT"))
+        x = true;
+       return x;
+   }
+
+   public boolean isRead(){
+   boolean x = false;
+   if (body.contains("READ")||body.contains("read")||body.contains("Read")||body.contains("rEAD"))
+       x = true;
+   return x;
+   }
+   
+   public boolean isIf(){
+    boolean x = false;
+    if(body.contains("IF")||body.contains("if")||body.contains("If")||body.contains("iF"))
+       x= true;
+    return x;
+   }
+   
+   public boolean isThen(){
+    boolean x= false;
+    if (body.contains("THEN")||body.contains("then")||body.contains("Then")||body.contains("tHEN"))
+        x = true;
+    return x;
+   }
+    
+  public boolean isEND(){
+      boolean x = false;
+      if (body.contains("END")||body.contains  ("end")||body.contains("End")||body.contains("eND"))
+          x = true;
+      return x;
+  }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
 }

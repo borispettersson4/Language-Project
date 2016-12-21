@@ -69,6 +69,32 @@ public class LanguageInterpreter {
        else if(aElement.isAssigner()) {
           System.out.println("This is the assigner operator!");
        }
+       
+       //Check if it's the print statement
+       else if (aElement.isPrint()){
+           System.out.println("This is the print statement.");
+       }
+       
+        //Check if it's the read statement
+       else if (aElement.isRead()){
+           System.out.println("This is the read statement.");
+       }
+       // Check if it's the if statement
+       else if (aElement.isIf()){
+           System.out.println("This is the if statement.");
+       }
+       //Check if it's the then statement
+       else if(aElement.isThen()){
+           System.out.println("This is the then statement.");
+       }
+       
+       //Check if it's the end statement
+       else if(aElement.isEND()){
+           System.out.println("This is the END statement.");
+       }
+       
+       
+       
           //Check if is operator
        else if(aElement.isOperator()) {
           System.out.println("This is an operator!");
