@@ -90,6 +90,46 @@ public class Identifier {
     // only got here if we didn't return false
     return true;
 }
+    public boolean isDecimalPoint(){
+        boolean x = false;
+        if(body.contains("."))
+            x = true;    
+        return x;
+    }
+    
+    public boolean isExponent(){
+      boolean x = false;
+      if(body.contains("e")||body.contains("E"))
+          x = true;
+      return x;
+    }
+    
+//    public boolean isDigit(){
+//        boolean x = false;
+//        if ((body.charAt(0) >= '0' && body.charAt(0) <= '9'))
+//            x = true;         
+//       return x;
+//    }
+    
+    public boolean isSign(){
+        boolean x = false;
+        if(body.contains("+")||body.contains("-"))
+            x = true;
+        return x;
+    } 
+    
+    public int signType(){
+        int x = 0;
+        if(body.contains("+"))
+            x = 1;
+        else if(body.contains("-"))
+            x = 2;;
+        return x;
+        
+    }
+ 
+  
+    
     
     public double convertToDouble() {
     return Double.parseDouble(body);
@@ -103,6 +143,8 @@ public class Identifier {
         return (Double.parseDouble(body) < 0);
     }
    
+    
+    
     public boolean isOperator() {
       boolean x = false;
       

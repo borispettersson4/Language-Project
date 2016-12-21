@@ -53,6 +53,33 @@ public class LanguageInterpreter {
            else 
            System.out.println("This is an unsigned Real Number!");   
        }
+       
+       //Check if its the decimal point
+       else if(aElement.isDecimalPoint()){
+         System.out.println("This is the decimal point for the usage of real numbers.");
+       }
+       
+       //Check if element is exponent
+       else if(aElement.isExponent()){
+         System.out.println("This is an exponent.");
+       }
+       
+//       //Check if element is a digit                   NEED HELP WITH THIS ONE.
+//       else if(aElement.isDigit()){
+//           System.out.println("This is a digit.");
+//       }
+       
+       //Check if the element is a sign
+       else if(aElement.isSign()){
+           System.out.println("This a Sign.");
+       if(aElement.signType() == 1)
+           System.out.println("This is the + sign.");
+       else if (aElement.signType() == 2)
+           System.out.println("This is the - sign.");
+       }
+       
+       
+       
        //Check if is mathematical operator
        else if(aElement.isMathOperator()) {
           System.out.println("This is a mathematical operator!");
