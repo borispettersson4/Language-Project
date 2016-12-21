@@ -17,7 +17,7 @@ public class LanguageInterpreter {
      */
     public static void main(String[] args) 
     {
-            String c;
+            String done;
         do{
         
        Identifier aElement = new Identifier();
@@ -114,8 +114,8 @@ public class LanguageInterpreter {
                
         System.out.println("");
         
-        System.out.println("Would you like to try again (Y/N)");
-        c = input.nextLine();
-        }while(!(c.contains("N")|| c.contains("n")));
+        System.out.println("If you wish to end the program type in DONE, if not go ahead and press enter the program will then ask for another entry.");
+        done = input.nextLine();
+        }while(!(done.contains("DONE")|| done.contains("done")||done.contains("Done")||done.contains("dONE")));
     }      
 }
