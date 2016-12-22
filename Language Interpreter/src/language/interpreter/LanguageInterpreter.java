@@ -23,7 +23,7 @@ public class LanguageInterpreter {
        Identifier aElement = new Identifier();
        
        Scanner input = new Scanner(System.in);    
-       System.out.println("Enter anything");
+       System.out.println("Enter anything: ");
        String aString = input.nextLine();
        aString.trim();
        aElement.setBody(aString);
@@ -41,9 +41,11 @@ public class LanguageInterpreter {
        if(aElement.isInteger()) {
            aElement.convertToInt();
            if(aElement.isSignedInteger())
-           System.out.println("This is a signed Integer!"); 
-           else
-           System.out.println("This is an unsigned Integer!");  
+            System.out.println("This is a signed Integer!"); 
+           else if(aElement.isUnsignedInteger())
+            System.out.println("This is an unsigned Integer!");
+           else if(aElement.isDigit())                  //Check if it's a digit
+               System.out.println("This is an unsigned Integer and a digit");
        }
        //Check if is double
        else if(aElement.isDouble()) {
@@ -54,7 +56,7 @@ public class LanguageInterpreter {
            System.out.println("This is an unsigned Real Number!");   
        }
        
-       //Check if its the decimal point
+       //Check if it's the decimal point
        else if(aElement.isDecimalPoint()){
          System.out.println("This is the decimal point for the usage of real numbers.");
        }
@@ -64,11 +66,6 @@ public class LanguageInterpreter {
          System.out.println("This is an exponent.");
        }
        
-//       //Check if element is a digit                   NEED HELP WITH THIS ONE.
-//       else if(aElement.isDigit()){
-//           System.out.println("This is a digit.");
-//       }
-       
        //Check if the element is a sign
        else if(aElement.isSign()){
            System.out.println("This a Sign.");
@@ -77,9 +74,7 @@ public class LanguageInterpreter {
        else if (aElement.signType() == 2)
            System.out.println("This is the - sign.");
        }
-       
-       
-       
+        
        //Check if is mathematical operator
        else if(aElement.isMathOperator()) {
           System.out.println("This is a mathematical operator!");
@@ -121,7 +116,6 @@ public class LanguageInterpreter {
        }
        
        
-       
           //Check if is operator
        else if(aElement.isOperator()) {
           System.out.println("This is an operator!");
@@ -157,13 +151,13 @@ public class LanguageInterpreter {
        else 
            System.out.println("This is an unkown token");
        
-       
-       
-       
-       
-       
-       //Final Verdict
-        System.out.println("You've entered : " + aElement.getBody());
+  
+          
+            //Final Verdict
+        if(aElement.isString())
+        System.out.println("This is also a String");
+        
+        System.out.println("You've entered: " + aElement.getBody());
                
         System.out.println("");
         

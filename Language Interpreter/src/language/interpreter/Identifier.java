@@ -13,7 +13,7 @@ package language.interpreter;
  * 
  *                                  CECS 4200 - 08                                                                                     
  *                                                                                                                  
- *                     Universidad Politecnica de Puerto Rico                                                                                                  
+ *                     Universidad Politécnica de Puerto Rico                                                                                                  
  *                                                                                                                                                  
  *___________________________________________________________________________________ 
  *
@@ -99,17 +99,17 @@ public class Identifier {
     
     public boolean isExponent(){
       boolean x = false;
-      if(body.contains("e")||body.contains("E"))
+      if (body.contains("e")||body.contains("E"))
           x = true;
       return x;
     }
     
-//    public boolean isDigit(){
-//        boolean x = false;
-//        if ((body.charAt(0) >= '0' && body.charAt(0) <= '9'))
-//            x = true;         
-//       return x;
-//    }
+    public boolean isDigit(){
+       boolean x = false;
+       if ((body.charAt(0) >= '0' && body.charAt(0) <= '9'))
+            x = true;         
+       return x;
+    }
     
     public boolean isSign(){
         boolean x = false;
@@ -127,10 +127,7 @@ public class Identifier {
         return x;
         
     }
- 
-  
-    
-    
+
     public double convertToDouble() {
     return Double.parseDouble(body);
     }
@@ -138,14 +135,16 @@ public class Identifier {
     public boolean isSignedInteger(){
         return (Integer.parseInt(body) < 0);
     }
+    public boolean isUnsignedInteger(){
+        return(Integer.parseInt(body) >  9);
+    }
     
     public boolean isSignedDouble(){
         return (Double.parseDouble(body) < 0);
     }
    
     
-    
-    public boolean isOperator() {
+     public boolean isOperator() {
       boolean x = false;
       
       if(body.contains(".or.") || body.contains(".and.") || body.contains(".not.") || body.contains(".eq.") || body.contains(".ne.") || body.contains(".lt.") || body.contains(".le.") || body.contains(".gt.") || body.contains(".ge."))
@@ -243,6 +242,12 @@ public class Identifier {
       return x;
   }
   
+  public boolean isString(){
+    boolean x = false;
+    if((body.charAt(0) == '"' && body.charAt(body.length()-1) == '"'))
+       x =  true;
+    return x;
+  }
   
 
 
