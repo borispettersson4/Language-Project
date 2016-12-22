@@ -36,9 +36,15 @@ public class LanguageInterpreter {
            aElement.setBody(aString);
            }while(aString == "");
        }
+       
+       
+        //Check if element is exponent
+       if(aElement.isIntegerWithExponent()){
+         System.out.println("This is an Integer that has an exponent!");
+       }
         
        //Check if is integer
-       if(aElement.isInteger()) {
+      else if(aElement.isInteger()) {
            aElement.convertToInt();
            if(aElement.isSignedInteger())
             System.out.println("This is a signed Integer!"); 
@@ -47,10 +53,6 @@ public class LanguageInterpreter {
            else if(aElement.isDigit())                  //Check if it's a digit
                System.out.println("This is an unsigned Integer and a digit");
            
-        //Check if element is exponent
-       if(aElement.isExponent()){
-         System.out.println("This number has an exponent.");
-       }
        }
        //Check if is double
        else if(aElement.isDouble()) {
@@ -60,7 +62,7 @@ public class LanguageInterpreter {
            else 
            System.out.println("This is an unsigned Real Number!");   
            
-       if(aElement.isExponent()){
+       if(aElement.hasExponent()){
          System.out.println("This number has an exponent.");
        }
        }

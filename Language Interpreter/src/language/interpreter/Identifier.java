@@ -23,15 +23,15 @@ public class Identifier {
 
     private String body;
     
-      public Identifier() {
+    public Identifier() {
         this.body = "";
     }
 
-      public Identifier(String body) {
+    public Identifier(String body) {
         this.body = body;
     }
           
-      public String getBody() {
+    public String getBody() {
         return body;
     }
 
@@ -41,7 +41,7 @@ public class Identifier {
     
     //Variable Checkers
    
-   public boolean isVariable(){
+    public boolean isVariable(){
       boolean x = false;
       
       if((body.charAt(0) >= 'a' && body.charAt(0) <= 'z') || (body.charAt(0) >= 'A' && body.charAt(0) <= 'Z'))
@@ -62,6 +62,26 @@ public class Identifier {
        }
        return i;
    }
+    
+    public boolean isIntegerWithExponent(){
+        boolean x = false;
+        for(int i = 0; i < body.length() && (body.charAt(i) >= '0' && body.charAt(i) <= '9'); i++){
+           
+            if(body.charAt(i) == '.')
+                return false;
+                        
+            else if(!(body.charAt(i + 1) == 'e' || body.charAt(i + 1) == 'E'))
+                return false;
+            
+            else if((body.charAt(i + 1) == 'e' || body.charAt(i + 1) == 'E') && !(body.endsWith("E") || body.endsWith("e")))
+                return true;
+            
+        } 
+   
+  // if((body.charAt(0) >= '0' && body.charAt(0) <= '9') && (body.contains("E") || body.contains("e")))
+           
+        return x;
+    }
    
     public boolean isInteger() {
     try { 
@@ -79,7 +99,7 @@ public class Identifier {
     return Integer.parseInt(body);
     }
     
-      public boolean isDouble() {
+    public boolean isDouble() {
     try { 
         Double.parseDouble(body); 
     } catch(NumberFormatException e) { 
@@ -89,7 +109,12 @@ public class Identifier {
     }
     // only got here if we didn't return false
     return true;
-}
+} 
+    
+    public double convertToDouble() {
+    return Double.parseDouble(body);
+    }
+    
     public boolean hasDecimalPoint(){
         boolean x = false;
         if(body.contains("."))
@@ -97,7 +122,7 @@ public class Identifier {
         return x;
     }
     
-    public boolean isExponent(){
+    public boolean hasExponent(){
       boolean x = false;
       if ((body.charAt(0) >= '0' && body.charAt(0) <= '9'))
       if (body.contains("e")||body.contains("E"))
@@ -128,14 +153,11 @@ public class Identifier {
         return x;
         
     }
-
-    public double convertToDouble() {
-    return Double.parseDouble(body);
-    }
        
     public boolean isSignedInteger(){
         return (Integer.parseInt(body) < 0);
     }
+  
     public boolean isUnsignedInteger(){
         return(Integer.parseInt(body) >  9);
     }
@@ -143,9 +165,8 @@ public class Identifier {
     public boolean isSignedDouble(){
         return (Double.parseDouble(body) < 0);
     }
-   
-    
-     public boolean isOperator() {
+       
+    public boolean isOperator() {
       boolean x = false;
       
       if(body.contains(".or.") || body.contains(".and.") || body.contains(".not.") || body.contains(".eq.") || body.contains(".ne.") || body.contains(".lt.") || body.contains(".le.") || body.contains(".gt.") || body.contains(".ge."))
@@ -154,7 +175,7 @@ public class Identifier {
       return x;
    }
    
-   public int OperatorType(){
+    public int OperatorType(){
        int i = 0;
        if(isOperator()){
            if(body.contains(".or."))
@@ -179,7 +200,7 @@ public class Identifier {
        return i;
    }
    
-   public boolean isMathOperator() {
+    public boolean isMathOperator() {
        boolean x = false;
        if(body.contains(".add.") || body.contains(".sub.") || body.contains(".mul.") || body.contains(".div."))
            x = true;
@@ -201,49 +222,49 @@ public class Identifier {
        return i;
    }
    
-   public boolean isAssigner() {
+    public boolean isAssigner() {
        boolean x = false;
        if(body.contains("="))
            x = true;
        return x;
    }
    
-   public boolean isPrint (){
+    public boolean isPrint (){
        boolean x = false;
        if (body.contains("PRINT")||body.contains("print") || body.contains("Print")|| body.contains("pRINT"))
         x = true;
        return x;
    }
 
-   public boolean isRead(){
+    public boolean isRead(){
    boolean x = false;
    if (body.contains("READ")||body.contains("read")||body.contains("Read")||body.contains("rEAD"))
        x = true;
    return x;
    }
    
-   public boolean isIf(){
+    public boolean isIf(){
     boolean x = false;
     if(body.contains("IF")||body.contains("if")||body.contains("If")||body.contains("iF"))
        x= true;
     return x;
    }
    
-   public boolean isThen(){
+    public boolean isThen(){
     boolean x= false;
     if (body.contains("THEN")||body.contains("then")||body.contains("Then")||body.contains("tHEN"))
         x = true;
     return x;
    }
     
-  public boolean isEND(){
+    public boolean isEND(){
       boolean x = false;
       if (body.contains("END")||body.contains  ("end")||body.contains("End")||body.contains("eND"))
           x = true;
       return x;
   }
   
-  public boolean isString(){
+    public boolean isString(){
     boolean x = false;
     if((body.charAt(0) == '"' && body.charAt(body.length()-1) == '"'))
        x =  true;
