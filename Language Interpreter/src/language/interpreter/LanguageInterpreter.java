@@ -46,6 +46,11 @@ public class LanguageInterpreter {
             System.out.println("This is an unsigned Integer!");
            else if(aElement.isDigit())                  //Check if it's a digit
                System.out.println("This is an unsigned Integer and a digit");
+           
+        //Check if element is exponent
+       if(aElement.isExponent()){
+         System.out.println("This number has an exponent.");
+       }
        }
        //Check if is double
        else if(aElement.isDouble()) {
@@ -54,18 +59,17 @@ public class LanguageInterpreter {
            System.out.println("This is a signed Real Number!");   
            else 
            System.out.println("This is an unsigned Real Number!");   
+           
+       if(aElement.isExponent()){
+         System.out.println("This number has an exponent.");
+       }
        }
        
        //Check if it's the decimal point
-       else if(aElement.isDecimalPoint()){
+       else if(aElement.hasDecimalPoint()){
          System.out.println("This is the decimal point for the usage of real numbers.");
        }
-       
-       //Check if element is exponent
-       else if(aElement.isExponent()){
-         System.out.println("This is an exponent.");
-       }
-       
+             
        //Check if the element is a sign
        else if(aElement.isSign()){
            System.out.println("This a Sign.");
@@ -148,14 +152,16 @@ public class LanguageInterpreter {
        else if(aElement.variableType() == 3)
            System.out.println("The variable type is String");
        }
+       
+       else if(aElement.isString())
+        System.out.println("This is a String!");
+       
        else 
            System.out.println("This is an unkown token");
        
   
           
             //Final Verdict
-        if(aElement.isString())
-        System.out.println("This is also a String");
         
         System.out.println("You've entered: " + aElement.getBody());
                
