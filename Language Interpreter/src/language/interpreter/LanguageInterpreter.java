@@ -39,16 +39,14 @@ public class LanguageInterpreter {
        
        
         //Check if element is exponent
-       if(aElement.isIntegerWithExponent()){
-         System.out.println("This is an Integer that has an exponent!");
-       }
+     
         
        //Check if is integer
       else if(aElement.isInteger()) {
            aElement.convertToInt();
            if(aElement.isSignedInteger())
             System.out.println("This is a signed Integer!"); 
-           else if(aElement.isUnsignedInteger())
+           else if(!aElement.isSignedInteger())
             System.out.println("This is an unsigned Integer!");
            else if(aElement.isDigit())                  //Check if it's a digit
                System.out.println("This is an unsigned Integer and a digit");
@@ -68,18 +66,18 @@ public class LanguageInterpreter {
        }
        
        //Check if it's the decimal point
-       else if(aElement.hasDecimalPoint()){
-         System.out.println("This is the decimal point for the usage of real numbers.");
-       }
+    //   else if(aElement.hasDecimalPoint()){
+      //   System.out.println("This is the decimal point for the usage of real numbers.");
+     //  }
              
        //Check if the element is a sign
-       else if(aElement.isSign()){
-           System.out.println("This a Sign.");
-       if(aElement.signType() == 1)
-           System.out.println("This is the + sign.");
-       else if (aElement.signType() == 2)
-           System.out.println("This is the - sign.");
-       }
+     //  else if(aElement.isSign()){
+    //       System.out.println("This a Sign.");
+    //   if(aElement.signType() == 1)
+    //       System.out.println("This is the + sign.");
+     //  else if (aElement.signType() == 2)
+     //      System.out.println("This is the - sign.");
+    //   }
         
        //Check if is mathematical operator
        else if(aElement.isMathOperator()) {
@@ -100,25 +98,25 @@ public class LanguageInterpreter {
        
        //Check if it's the print statement
        else if (aElement.isPrint()){
-           System.out.println("This is the print statement.");
+           System.out.println("This is the print KeyWord.");
        }
        
         //Check if it's the read statement
        else if (aElement.isRead()){
-           System.out.println("This is the read statement.");
+           System.out.println("This is the read KeyWord.");
        }
        // Check if it's the if statement
        else if (aElement.isIf()){
-           System.out.println("This is the if statement.");
+           System.out.println("This is the if KeyWord.");
        }
        //Check if it's the then statement
        else if(aElement.isThen()){
-           System.out.println("This is the then statement.");
+           System.out.println("This is the then KeyWord.");
        }
        
        //Check if it's the end statement
        else if(aElement.isEND()){
-           System.out.println("This is the END statement.");
+           System.out.println("This is the END KeyWord.");
        }
        
        
@@ -144,6 +142,14 @@ public class LanguageInterpreter {
        else if(aElement.OperatorType() == 9)
            System.out.println("This is a comparative GREATER EQUAL operator");
        }
+        //Check if is a String
+       else if(aElement.isString())
+        System.out.println("This is a String!");
+       
+       //Check if it's the comment statement
+        else if(aElement.isComment())
+           System.out.println("This is a KeyWord.");
+        
        //Check if is variable
        else if(aElement.isVariable()) {
           System.out.println("This is a variable!");
@@ -154,9 +160,6 @@ public class LanguageInterpreter {
        else if(aElement.variableType() == 3)
            System.out.println("The variable type is String");
        }
-       
-       else if(aElement.isString())
-        System.out.println("This is a String!");
        
        else 
            System.out.println("This is an unkown token");

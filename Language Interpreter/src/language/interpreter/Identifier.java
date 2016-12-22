@@ -45,6 +45,10 @@ public class Identifier {
       boolean x = false;
       
       if((body.charAt(0) >= 'a' && body.charAt(0) <= 'z') || (body.charAt(0) >= 'A' && body.charAt(0) <= 'Z'))
+          for(int i = 0; i < body.length() ; i++)
+              if((body.charAt(i) >= '0' && body.charAt(i) <= '9'))
+          x = false;
+      else
           x = true;
       
       return x;
@@ -65,21 +69,19 @@ public class Identifier {
     
     public boolean isIntegerWithExponent(){
         boolean x = false;
-        for(int i = 0; i < body.length() && (body.charAt(i) >= '0' && body.charAt(i) <= '9'); i++){
+        for(int i = 0; i < body.length() && ((body.charAt(i) >= '0' && body.charAt(i) <= '9') || (body.charAt(0) == '-' || body.charAt(0) == '+')); i++){
            
             if(body.charAt(i) == '.')
                 return false;
                         
-            else if(!(body.charAt(i + 1) == 'e' || body.charAt(i + 1) == 'E'))
+           else if(!(body.contains("e") || body.contains("E")))
                 return false;
             
             else if((body.charAt(i + 1) == 'e' || body.charAt(i + 1) == 'E') && !(body.endsWith("E") || body.endsWith("e")))
                 return true;
             
-        } 
-   
-  // if((body.charAt(0) >= '0' && body.charAt(0) <= '9') && (body.contains("E") || body.contains("e")))
-           
+    } 
+       
         return x;
     }
    
@@ -155,15 +157,11 @@ public class Identifier {
     }
        
     public boolean isSignedInteger(){
-        return (Integer.parseInt(body) < 0);
+        return ((body.charAt(0) == '-') || (body.charAt(0) == '+'));
     }
-  
-    public boolean isUnsignedInteger(){
-        return(Integer.parseInt(body) >  9);
-    }
-    
+      
     public boolean isSignedDouble(){
-        return (Double.parseDouble(body) < 0);
+        return ((body.charAt(0) == '-') || (body.charAt(0) == '+'));
     }
        
     public boolean isOperator() {
@@ -259,7 +257,7 @@ public class Identifier {
     
     public boolean isEND(){
       boolean x = false;
-      if (body.contains("END")||body.contains  ("end")||body.contains("End")||body.contains("eND"))
+      if (body.contains("END.")||body.contains ("end.")||body.contains("End.")||body.contains("eND."))
           x = true;
       return x;
   }
@@ -271,7 +269,12 @@ public class Identifier {
     return x;
   }
   
-
+  public boolean isComment(){
+  boolean x = false;
+  if (body.contains("REM")||body.contains("rem")||body.contains("Rem")||body.contains("rEM") || body.contains("ReM"))
+  x = true;
+  return x;
+  }
 
 
 
