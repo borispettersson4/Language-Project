@@ -74,7 +74,7 @@ public class Identifier {
             if(body.charAt(i) == '.')
                 return false;
                         
-           else if(!(body.contains("e") || body.contains("E")))
+           else if(!(body.equals("e") || body.equals("E")))
                 return false;
             
             else if((body.charAt(i + 1) == 'e' || body.charAt(i + 1) == 'E') && !(body.endsWith("E") || body.endsWith("e")))
@@ -116,17 +116,18 @@ public class Identifier {
     public double convertToDouble() {
     return Double.parseDouble(body);
     }
+
     
-    public boolean hasDecimalPoint(){
+    public boolean isDecimalPoint(){
         boolean x = false;
-        if(body.contains("."))
-            x = true;    
+        if(body.equals("."))
+            x = true;
         return x;
     }
+
     
     public boolean hasExponent(){
       boolean x = false;
-      if ((body.charAt(0) >= '0' && body.charAt(0) <= '9'))
       if (body.contains("e")||body.contains("E"))
           x = true;
       return x;
@@ -134,25 +135,27 @@ public class Identifier {
     
     public boolean isDigit(){
        boolean x = false;
-       if ((body.charAt(0) >= '0' && body.charAt(0) <= '9'))
-            x = true;         
-       return x;
+       if ((body.equals("0") || body.equals ("1") || body.equals ("2")) || body.equals("3")
+               || body.equals("4") || body.equals("5") || body.equals("6") || body.equals("7")
+               || body.equals("8") || body.equals("9"))
+            x = true;
+        return x;
     }
     
     public boolean isSign(){
         boolean x = false;
-        if(body.contains("+")||body.contains("-"))
+        if(body.equals("+")||body.equals("-"))
             x = true;
         return x;
     } 
     
     public int signType(){
-        int x = 0;
-        if(body.contains("+"))
-            x = 1;
-        else if(body.contains("-"))
-            x = 2;
-        return x;
+        int i = 0;
+        if(body.equals("+"))
+            i = 1;
+        else if(body.equals("-"))
+            i = 2;
+        return i;
         
     }
        
@@ -167,7 +170,8 @@ public class Identifier {
     public boolean isOperator() {
       boolean x = false;
       
-      if(body.contains(".or.") || body.contains(".and.") || body.contains(".not.") || body.contains(".eq.") || body.contains(".ne.") || body.contains(".lt.") || body.contains(".le.") || body.contains(".gt.") || body.contains(".ge."))
+      if(body.equals(".or.") || body.equals(".and.") || body.equals(".not.") || body.equals(".eq.") || body.equals(".ne.") 
+              || body.equals(".lt.") || body.equals(".le.") || body.equals(".gt.") || body.equals(".ge."))
           x = true;
       
       return x;
@@ -176,23 +180,23 @@ public class Identifier {
     public int OperatorType(){
        int i = 0;
        if(isOperator()){
-           if(body.contains(".or."))
+           if(body.equals(".or."))
                i = 1;
-           else if(body.contains(".and."))
+           else if(body.equals(".and."))
                i = 2;
-           else if(body.contains(".not."))
+           else if(body.equals(".not."))
                i = 3;
-           else if(body.contains(".eq."))
+           else if(body.equals(".eq."))
                i = 4;
-           else if(body.contains(".ne."))
+           else if(body.equals(".ne."))
                i = 5;
-           else if(body.contains(".lt."))
+           else if(body.equals(".lt."))
                i = 6;
-           else if(body.contains(".le."))
+           else if(body.equals(".le."))
                i = 7;
-           else if(body.contains(".gt."))
+           else if(body.equals(".gt."))
                i = 8;
-           else if(body.contains(".ge."))
+           else if(body.equals(".ge."))
                i = 9;
        }
        return i;
@@ -200,7 +204,7 @@ public class Identifier {
    
     public boolean isMathOperator() {
        boolean x = false;
-       if(body.contains(".add.") || body.contains(".sub.") || body.contains(".mul.") || body.contains(".div."))
+       if(body.equals(".add.") || body.equals(".sub.") || body.equals(".mul.") || body.equals(".div."))
            x = true;
        return x;
    }
@@ -208,56 +212,60 @@ public class Identifier {
     public int MathOperatorType(){
        int i = 0;
        if(isMathOperator()){
-           if(body.contains(".add."))
+           if(body.equals(".add."))
                i = 1;
-           else if(body.contains(".sub."))
+           else if(body.equals(".sub."))
                i = 2;
-           else if(body.contains(".mul."))
+           else if(body.equals(".mul."))
                i = 3;
-           else if(body.contains(".div."))
+           else if(body.equals(".div."))
                i = 4;
        }
        return i;
    }
+    
+
    
+    //Assigner
     public boolean isAssigner() {
        boolean x = false;
-       if(body.contains("="))
+       if(body.equals("="))
            x = true;
        return x;
    }
    
+    //Keywords
     public boolean isPrint (){
        boolean x = false;
-       if (body.contains("PRINT")||body.contains("print") || body.contains("Print")|| body.contains("pRINT"))
+       if (body.equals("PRINT")||body.equals("print") || body.equals("Print")|| body.equals("pRINT"))
         x = true;
        return x;
    }
 
     public boolean isRead(){
    boolean x = false;
-   if (body.contains("READ")||body.contains("read")||body.contains("Read")||body.contains("rEAD"))
+   if (body.equals("READ")||body.equals("read")||body.equals("Read")||body.equals("rEAD"))
        x = true;
    return x;
    }
    
     public boolean isIf(){
     boolean x = false;
-    if(body.contains("IF")||body.contains("if")||body.contains("If")||body.contains("iF"))
+    if(body.equals("IF")||body.equals("if")||body.equals("If")||body.equals("iF"))
        x= true;
     return x;
    }
    
     public boolean isThen(){
     boolean x= false;
-    if (body.contains("THEN")||body.contains("then")||body.contains("Then")||body.contains("tHEN"))
+    if (body.equals("THEN")||body.equals("then")||body.equals("Then")||body.equals("tHEN"))
         x = true;
     return x;
    }
     
     public boolean isEND(){
       boolean x = false;
-      if (body.contains("END.")||body.contains ("end.")||body.contains("End.")||body.contains("eND."))
+      if (body.equals("END.")||body.equals("end.")||body.equals("End.")||body.equals("eND."))
           x = true;
       return x;
   }
@@ -271,13 +279,13 @@ public class Identifier {
   
   public boolean isComment(){
   boolean x = false;
-  if (body.contains("REM")||body.contains("rem")||body.contains("Rem")||body.contains("rEM") || body.contains("ReM"))
+  if (body.equals("REM")||body.equals("rem")||body.equals("Rem")||body.equals("rEM") || body.equals("ReM"))
   x = true;
   return x;
   }
 
 
-
+ 
 
 
 

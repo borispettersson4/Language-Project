@@ -28,93 +28,96 @@ public class LanguageInterpreter {
        aString.trim();
        aElement.setBody(aString);
        
- //FailSafe
-       if (aString == ""){
-           do{
-           System.out.println("You've pressed enter, please try inserting a valid variable name: ");
-           aString = input.nextLine();
-           aElement.setBody(aString);
-           }while(aString == "");
-       }
-       
-       
-        //Check if element is exponent
-     
-        
-       //Check if is integer
-      else if(aElement.isInteger()) {
+// //FailSafe
+//       if (aString == ""){
+//           do{
+//           System.out.println("You've pressed enter, please try inserting a valid variable name: ");
+//           aString = input.nextLine();
+//           aElement.setBody(aString);
+//           }while(aString == "");
+//       }                                                
+//       
+//        //Check if element is exponent
+//     
+
+          //Check if is a sign.
+          if(aElement.isSign()){
+            System.out.println("This is a sign");
+          if(aElement.signType() == 1 )
+            System.out.println("This is the sign, +");
+          else System.out.println("This is the sign, -");
+          }else
+              
+//       //Check if is integer      
+            if(aElement.isInteger()) {
            aElement.convertToInt();
            if(aElement.isSignedInteger())
             System.out.println("This is a signed Integer!"); 
            else if(!aElement.isSignedInteger())
             System.out.println("This is an unsigned Integer!");
-           else if(aElement.isDigit())                  //Check if it's a digit
-               System.out.println("This is an unsigned Integer and a digit");
+           else;
+           if(aElement.isDigit())                  //Check if it's a digit
+               System.out.println("This unsigned integer is a digit");
+           }
+
            
-       }
        //Check if is double
-       else if(aElement.isDouble()) {
+       else if(aElement.isDouble()) { 
            aElement.convertToDouble();
            if(aElement.isSignedDouble())
            System.out.println("This is a signed Real Number!");   
-           else 
+           else
            System.out.println("This is an unsigned Real Number!");   
            
        if(aElement.hasExponent()){
-         System.out.println("This number has an exponent.");
+         System.out.println("This realnumber has an exponent.");
        }
        }
        
        //Check if it's the decimal point
-    //   else if(aElement.hasDecimalPoint()){
-      //   System.out.println("This is the decimal point for the usage of real numbers.");
-     //  }
-             
-       //Check if the element is a sign
-     //  else if(aElement.isSign()){
-    //       System.out.println("This a Sign.");
-    //   if(aElement.signType() == 1)
-    //       System.out.println("This is the + sign.");
-     //  else if (aElement.signType() == 2)
-     //      System.out.println("This is the - sign.");
-    //   }
+       else if(aElement.isDecimalPoint()){
+         System.out.println("This is the decimal point");
+       }
         
+       
        //Check if is mathematical operator
-       else if(aElement.isMathOperator()) {
-          System.out.println("This is a mathematical operator!");
+       else if(aElement.isMathOperator()) 
+       {
+          System.out.println("This is a Arithmetic operator!");
        if(aElement.MathOperatorType() == 1)
-           System.out.println("This is addition");
+           System.out.println("This is the arithmetic operator for addition");
        else if(aElement.MathOperatorType() == 2)
-           System.out.println("This is substraction");
+           System.out.println("This is the arithmetic for substraction");
        else if(aElement.MathOperatorType() == 3)
-           System.out.println("This is multiplication");
+           System.out.println("This is the arithmetic operator for multiplication");
        else if(aElement.MathOperatorType() == 4)
-           System.out.println("This is a division");
+           System.out.println("This is the arithmetic operator for division");
        }
-           //Check if is assigner
-       else if(aElement.isAssigner()) {
+        //Check if is assigner keyword 
+       else   
+       if(aElement.isAssigner()) 
           System.out.println("This is the assigner operator!");
-       }
        
-       //Check if it's the print statement
+       
+       //Check if it's the print keyword
        else if (aElement.isPrint()){
-           System.out.println("This is the print KeyWord.");
+           System.out.println("This is the keyword, PRINT");
        }
        
-        //Check if it's the read statement
+        //Check if it's the read keyword
        else if (aElement.isRead()){
-           System.out.println("This is the read KeyWord.");
+           System.out.println("This is the keyword, READ");
        }
-       // Check if it's the if statement
+       // Check if it's the if keyword
        else if (aElement.isIf()){
-           System.out.println("This is the if KeyWord.");
+           System.out.println("This is the keyword, IF");
        }
-       //Check if it's the then statement
+       //Check if it's the then keyword
        else if(aElement.isThen()){
-           System.out.println("This is the then KeyWord.");
+           System.out.println("This is the the keyword, THEN");
        }
        
-       //Check if it's the end statement
+       //Check if it's the end keyword
        else if(aElement.isEND()){
            System.out.println("This is the END KeyWord.");
        }
@@ -124,51 +127,52 @@ public class LanguageInterpreter {
        else if(aElement.isOperator()) {
           System.out.println("This is an operator!");
        if(aElement.OperatorType() == 1)
-           System.out.println("This is a logical OR operator");
+           System.out.println("This is the logical operator, OR");
        else if(aElement.OperatorType() == 2)
-           System.out.println("This is a logical AND operator");
+           System.out.println("This is the logical operator, AND");
        else if(aElement.OperatorType() == 3)
-           System.out.println("This is a logical NOT oprator");
+           System.out.println("This is the logical operator, NOT");
        else if(aElement.OperatorType() == 4)
-           System.out.println("This is a comparative EQUAL operator");
+           System.out.println("This is the relational operator, EQUAL");
        else if(aElement.OperatorType() == 5)
-           System.out.println("This is a comparative NOT EQUAL operator");
+           System.out.println("This is a relational operator, NOT EQUAL");
        else if(aElement.OperatorType() == 6)
-           System.out.println("This is a comparative LESS THAN operator");
+           System.out.println("This is the relational operator, LESS THAN");
        else if(aElement.OperatorType() == 7)
-           System.out.println("This is a comparative LESS EQUAL operator");
+           System.out.println("This is the relational operator, LESS EQUAL");
        else if(aElement.OperatorType() == 8)
-           System.out.println("This is a comparative GREATER THAN operator");
+           System.out.println("This is the relational operator, GREATER THAN");
        else if(aElement.OperatorType() == 9)
-           System.out.println("This is a comparative GREATER EQUAL operator");
+           System.out.println("This is the relational operator, GREATER EQUAL");
        }
         //Check if is a String
        else if(aElement.isString())
         System.out.println("This is a String!");
        
-       //Check if it's the comment statement
+       //Check if it's the comment keyword
         else if(aElement.isComment())
-           System.out.println("This is a KeyWord.");
-        
+           System.out.println("This is the keyword, REM");//IS REM A KEYWORD?
        //Check if is variable
        else if(aElement.isVariable()) {
           System.out.println("This is a variable!");
        if(aElement.variableType() == 1)
-           System.out.println("The variable type is Integer");
+           System.out.println("This variable is for Integers");
        else if(aElement.variableType() == 2)
-           System.out.println("The variable type is Real Number");
+           System.out.println("The variable is for Doubles");
        else if(aElement.variableType() == 3)
-           System.out.println("The variable type is String");
+           System.out.println("The variable is for Strings");
        }
        
-       else 
-           System.out.println("This is an unkown token");
+       else
+       
+      System.out.println("This is an unkown token");
        
   
           
+      
             //Final Verdict
         
-        System.out.println("You've entered: " + aElement.getBody());
+       System.out.println("You've entered: " + aElement.getBody());
                
         System.out.println("");
         
