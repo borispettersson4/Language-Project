@@ -60,9 +60,13 @@ public class LanguageInterpreter {
                System.out.println("This unsigned integer is a digit");
            }
 
+            if((aElement.isInteger() && aElement.hasExponent())){
+                System.out.println("This integer has exponent.");
+            }
+               
            
        //Check if is double
-       else if(aElement.isDouble()) { 
+       else if((aElement.contains(".") && aElement.isDouble()) || (!aElement.hasExponent())) { 
            aElement.convertToDouble();
            if(aElement.isSignedDouble())
            System.out.println("This is a signed Real Number!");   

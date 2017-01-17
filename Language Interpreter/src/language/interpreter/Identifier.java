@@ -124,6 +124,10 @@ public class Identifier {
             x = true;
         return x;
     }
+    
+    public boolean contains(String s){
+        return body.contains(s);
+    }
 
     
     public boolean hasExponent(){
