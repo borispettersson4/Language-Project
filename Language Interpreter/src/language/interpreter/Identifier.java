@@ -287,6 +287,11 @@ public class Identifier {
   x = true;
   return x;
   }
+  
+  public boolean isUnknown(){
+      return !(isComment() && isString() && isEND() && isThen() && isIf() && isRead() && isPrint() && isAssigner() && isMathOperator() && isOperator());
+  }
+  
 
 
  

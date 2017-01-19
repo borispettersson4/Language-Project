@@ -10,21 +10,34 @@ import java.util.Scanner;
 /**
  *
  */
-public class LanguageInterpreter {
+public class TokenInterpreter {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
+    
+    public String aString;
+    public boolean isUnknown = false;
+    
+    public TokenInterpreter() {
+        
+    }
+
+    @Override
+    public String toString() {
+        return  aString;
+    }
+    
+    
+           
+    public void checkType() 
     {
-            String done;
-        do{
         
        Identifier aElement = new Identifier();
        
        Scanner input = new Scanner(System.in);    
        System.out.println("Enter anything: ");
-       String aString = input.nextLine();
+       aString = input.nextLine();
        aString.trim();
        aElement.setBody(aString);
        
@@ -168,20 +181,10 @@ public class LanguageInterpreter {
        }
        
        else
-       
+       {
       System.out.println("This is an unkown token");
-       
-  
-          
-      
-            //Final Verdict
-        
-       System.out.println("You've entered: " + aElement.getBody());
-               
-        System.out.println("");
-        
-        System.out.println("If you wish to end the program type in DONE, if not go ahead and press enter the program will then ask for another entry.");
-        done = input.nextLine();
-        }while(!(done.contains("DONE")|| done.contains("done")||done.contains("Done")||done.contains("dONE")));
+      isUnknown = true;
+       }
+    }
     }      
-}
+
