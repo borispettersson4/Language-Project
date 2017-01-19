@@ -5,6 +5,7 @@
  */
 package language.interpreter;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,41 +19,25 @@ public class SintaxInterpreter {
     public static void main(String[] args) 
     {
         
-       final int CONST = 40;
-       TokenInterpreter [] aElement = new TokenInterpreter[CONST];
+       ArrayList<Identifier> identifiers = new ArrayList<Identifier>();
        Scanner input = new Scanner(System.in);    
        System.out.println("Enter an instruction: ");
        String aString = input.nextLine();
        
+       String[] tokens = aString.split(" ");
        
        
-       boolean foundAllElements = false;
-       for(int k = 0; k < CONST; k++) {
-       for(int i = 0 ;!foundAllElements; i++) {
-           if(aString.charAt(i) != '\0' && aString.charAt(i) != ' '){
-               boolean isAnElement = false;
-               for(int j = 0; !isAnElement ; i++) {
-                   
-                   if(!(aString.charAt(i + j) != '\0' && aString.charAt(i + j) != ' ')) {
-                       aElement[k].aString = aString.substring(i, j);
-                       isAnElement = true;
-                       i += j + 1;
-                       break;
-                   }
-                       
-                       
-               }
-               
-             break;  
-           
+      for(int i = 0; i < tokens.length ; i++) {
+          
+          if(!tokens[i].equals("")) {
+          identifiers.add(new Identifier(tokens[i]));
+          if(!identifiers.get(i).isUnknown())
+          System.out.println("Found Token : " + identifiers.get(i).getBody());
+          else
+          System.out.println("Found Uknown Token : " + identifiers.get(i).getBody());
+          }
        }
-           else if(aString.charAt(i) == '\0')
-               foundAllElements = true;
-       }
-       
-       System.out.println("Found Element " + k);
-       }
+    }
        
 
     }     
-}

@@ -289,7 +289,7 @@ public class Identifier {
   }
   
   public boolean isUnknown(){
-      return !(isComment() && isString() && isEND() && isThen() && isIf() && isRead() && isPrint() && isAssigner() && isMathOperator() && isOperator());
+      return !(isComment() || isString() || isEND() || isThen() || isIf() || isRead() || isPrint() || isAssigner() || isMathOperator() || isOperator()  || isVariable() || isIntegerWithExponent() || isInteger() || isDouble() || isDecimalPoint() || isDigit() || isSign() || isSignedInteger() || isSignedDouble());
   }
   
 
