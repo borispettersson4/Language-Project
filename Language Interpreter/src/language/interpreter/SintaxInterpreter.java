@@ -31,13 +31,10 @@ public class SintaxInterpreter {
           
           if(!tokens[i].equals("")) {
           identifiers.add(new Identifier(tokens[i]));
-          if(!identifiers.get(i).isUnknown())
-          System.out.println("Found Token : " + identifiers.get(i).getBody());
-          else
-          System.out.println("Found Uknown Token : " + identifiers.get(i).getBody());
+          
+          
           }
        }
     }
-       
 
     }     

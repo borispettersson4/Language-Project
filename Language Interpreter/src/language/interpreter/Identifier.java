@@ -53,6 +53,10 @@ public class Identifier {
       
       return x;
     }
+    
+     public boolean isNumberVariable(){
+     return(variableType() == 1 || variableType() == 2);
+    }
    
     public int variableType(){
        int i = 0;
@@ -290,6 +294,10 @@ public class Identifier {
   
   public boolean isUnknown(){
       return !(isComment() || isString() || isEND() || isThen() || isIf() || isRead() || isPrint() || isAssigner() || isMathOperator() || isOperator()  || isVariable() || isIntegerWithExponent() || isInteger() || isDouble() || isDecimalPoint() || isDigit() || isSign() || isSignedInteger() || isSignedDouble());
+  }
+  
+  public boolean isNumber() {
+      return ((isInteger() || isIntegerWithExponent() || isDouble() || (isVariable() && (variableType() == 1 || variableType() == 2))));
   }
   
 
