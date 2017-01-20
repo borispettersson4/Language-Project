@@ -24,7 +24,7 @@ public class Identifier {
     private String body;
     
     public Identifier() {
-        this.body = "";
+        this.body = null;
     }
 
     public Identifier(String body) {
@@ -40,6 +40,10 @@ public class Identifier {
     }
     
     //Variable Checkers
+    
+    public boolean isEmpty(){
+        return body == null;
+    }
    
     public boolean isVariable(){
       boolean x = false;
@@ -56,6 +60,18 @@ public class Identifier {
     
      public boolean isNumberVariable(){
      return(variableType() == 1 || variableType() == 2);
+    }
+     
+     public boolean isIntVariable(){
+     return(variableType() == 1);
+    }
+     
+     public boolean isRealVariable(){
+     return(variableType() == 2);
+    }
+     
+     public boolean isStringVariable(){
+     return(variableType() == 3);
     }
    
     public int variableType(){
@@ -106,15 +122,21 @@ public class Identifier {
     }
     
     public boolean isDouble() {
+        
+        boolean x = false;
+ 
+        if(body.contains(".0") || body.contains(".1") || body.contains(".2") || body.contains(".3") || body.contains(".4")
+                || body.contains(".5") || body.contains(".6") || body.contains(".7") || body.contains(".8") || body.contains(".9"))
+            x = true;
     try { 
         Double.parseDouble(body); 
     } catch(NumberFormatException e) { 
-        return false; 
+        x =  false; 
     } catch(NullPointerException e) {
-        return false;
+        x =  false;
     }
     // only got here if we didn't return false
-    return true;
+    return x;
 } 
     
     public double convertToDouble() {
@@ -294,6 +316,10 @@ public class Identifier {
   
   public boolean isUnknown(){
       return !(isComment() || isString() || isEND() || isThen() || isIf() || isRead() || isPrint() || isAssigner() || isMathOperator() || isOperator()  || isVariable() || isIntegerWithExponent() || isInteger() || isDouble() || isDecimalPoint() || isDigit() || isSign() || isSignedInteger() || isSignedDouble());
+  }
+  
+  public boolean isKeyWord(){
+      return (isComment() || isEND() || isThen() || isIf() || isRead() || isPrint());
   }
   
   public boolean isNumber() {

@@ -31,10 +31,18 @@ public class SintaxInterpreter {
           
           if(!tokens[i].equals("")) {
           aLine.getTokens().add(new Identifier(tokens[i]));
-          
-          
           }
        }
-    }
+   
+      aLine.checkSyntax();
+    
+    
+    
+    
+    
+    
+    
+    
+    } //End Main
 
     }     
