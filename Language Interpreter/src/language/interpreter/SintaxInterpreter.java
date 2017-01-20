@@ -19,7 +19,7 @@ public class SintaxInterpreter {
     public static void main(String[] args) 
     {
         
-       ArrayList<Identifier> identifiers = new ArrayList<Identifier>();
+       Line aLine = new Line();
        Scanner input = new Scanner(System.in);    
        System.out.println("Enter an instruction: ");
        String aString = input.nextLine();
@@ -30,7 +30,7 @@ public class SintaxInterpreter {
       for(int i = 0; i < tokens.length ; i++) {
           
           if(!tokens[i].equals("")) {
-          identifiers.add(new Identifier(tokens[i]));
+          aLine.getTokens().add(new Identifier(tokens[i]));
           
           
           }
