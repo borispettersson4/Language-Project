@@ -172,7 +172,7 @@ public class Line {
                 System.out.println("SYNTAX ERROR : Cannot convert String to Int");
                 else if (tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
                 System.out.println("SYNTAX ERROR : Cannot convert String to Real");
-                else if (isArithmeticExpression(2 + i)) {
+                else if (tokens.get(2 + i).isString() || tokens.get(2 + i).isStringVariable()) {
                 System.out.println("This checks out fine");
                 x = true;
                 }
