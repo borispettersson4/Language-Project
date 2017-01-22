@@ -120,7 +120,7 @@ public class Line {
                 else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isString())
                 System.out.println("SYNTAX ERROR : Cannot convert Real to String");
                 else if (isArithmeticExpression(2 + i)) {
-                System.out.println("This checks out fine");
+                System.out.println("Assigment statement checks out fine");
                 x = true;
                 }
                 else 
@@ -146,7 +146,7 @@ public class Line {
                 else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
                 System.out.println("SYNTAX ERROR : Cannot convert Int to Real");
                 else if (isArithmeticExpression(2 + i)) {
-                System.out.println("This checks out fine");
+                System.out.println("Int variable checks out fine");
                 x = true;
                 }
                 else 
@@ -173,7 +173,7 @@ public class Line {
                 else if (tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
                 System.out.println("SYNTAX ERROR : Cannot convert String to Real");
                 else if (tokens.get(2 + i).isString() || tokens.get(2 + i).isStringVariable()) {
-                System.out.println("This checks out fine");
+                System.out.println("String variable checks out fine");
                 x = true;
                 }
                 else 
@@ -198,7 +198,7 @@ public class Line {
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isComment()) {
             //Check if there is a Sting
             if((tokens.size() > i + 1) && tokens.get(1 + i).isString()) {
-                System.out.println("This checks out fine");
+                System.out.println("Comment statement checks out fine");
                 x = true;
             } //After decleration
            
@@ -206,7 +206,7 @@ public class Line {
                 System.out.println("SYNTAX ERROR : You can only remark with a string");
            
             else {
-                 System.out.println("This checks out fine");
+                 System.out.println("Comment checks out fine");
                  x = true;
             }
         } //After Decleration
@@ -223,7 +223,7 @@ public class Line {
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isPrint()) {
             //Check if there is a Sting
             if((tokens.size() > i + 1) && !tokens.get(1 + i).isKeyWord() && (tokens.get(1 + i).isString() || tokens.get(1 + i).isVariable() || tokens.get(1 + i).isNumber())) {
-                System.out.println("This checks out fine");
+                System.out.println("Print statement checks out fine");
                 x = true;
             } //After decleration
            
@@ -231,7 +231,7 @@ public class Line {
                 System.out.println("SYNTAX ERROR : You can only print a value");
            
             else {
-                 System.out.println("This checks out fine");
+                 System.out.println("Print checks out fine");
                  x = true;
             }
         } //After Decleration
@@ -246,9 +246,9 @@ public class Line {
         
         //Check if Print
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isRead()) {
-            //Check if there is a Sting
+            //Check if there is a String
             if((tokens.size() > i + 1) && !tokens.get(1 + i).isKeyWord() && tokens.get(1 + i).isVariable()) {
-                System.out.println("This checks out fine");
+                System.out.println("Read statement checks out fine");
                 x = true;
             } //After decleration
            
@@ -273,7 +273,7 @@ public class Line {
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isEND()) {
             //Check if there is a Sting
             if(!(tokens.size() > i + 1)) {
-                System.out.println("This checks out fine");
+                System.out.println("End statement checks out fine");
                 x = true;
             } //After decleration
            
@@ -309,7 +309,7 @@ public class Line {
                 
                 
                 if (((tokens.size() > i) && tokens.get(i).isThen()) && ((tokens.size() > i + 1) && (checkAssignmentStatement(i + 1) || checkCommentStatement(i + 1) || checkPrintStatement(i + 1)))) {
-                System.out.println("This checks out fine");
+                System.out.println("IfThen Statement checks out fine");
                 x = true;
                 }
                 else if(!(tokens.size() > i))
