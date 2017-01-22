@@ -302,6 +302,13 @@ public class Line {
                     
                  i = i + 2;
                  
+                 if((tokens.get(i).isOperator() || tokens.get(i).isMathOperator()))   {}
+                 else if (!tokens.get(i).isThen())
+                 {
+                  System.out.println("SYNTAX ERROR : Missing Operator or Operator Mismatch");
+                  break;
+                 }
+                 
                 }
                 
                 
@@ -309,7 +316,7 @@ public class Line {
                 
                 
                 if (((tokens.size() > i) && tokens.get(i).isThen()) && ((tokens.size() > i + 1) && (checkAssignmentStatement(i + 1) || checkCommentStatement(i + 1) || checkPrintStatement(i + 1)))) {
-                System.out.println("IfThen Statement checks out fine");
+                System.out.println("Conditional Statement checks out fine");
                 x = true;
                 }
                 else if(!(tokens.size() > i))
