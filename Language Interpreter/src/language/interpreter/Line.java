@@ -126,7 +126,7 @@ public class Line {
                 else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isString())
                 System.out.println("SYNTAX ERROR : Cannot convert Real to String");
                 else if (isArithmeticExpression(2 + i)) {
-                System.out.println("Assigment statement checks out fine");
+                System.out.println("Real variable assignment checks out fine");
                 x = true;
                 }
                 else 
@@ -152,7 +152,7 @@ public class Line {
                 else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
                 System.out.println("SYNTAX ERROR : Cannot convert Int to Real");
                 else if (isArithmeticExpression(2 + i)) {
-                System.out.println("Int variable checks out fine");
+                System.out.println("Int variable assignment checks out fine");
                 x = true;
                 }
                 else 
@@ -179,7 +179,7 @@ public class Line {
                 else if (tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
                 System.out.println("SYNTAX ERROR : Cannot convert String to Real");
                 else if (tokens.get(2 + i).isString() || tokens.get(2 + i).isStringVariable()) {
-                System.out.println("String variable checks out fine");
+                System.out.println("String assignment variable checks out fine");
                 x = true;
                 }
                 else 
@@ -300,7 +300,7 @@ public class Line {
         //Check if declared Real variable
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isIf()) {
             //Check if there is an assigner
-            if((tokens.size() > i + 1) && conditionalStatement(i + 1)) {
+            if((tokens.size() > i + 2) && conditionalStatement(i + 1)) {
                 
                                 
                 //Checks what's the condition
@@ -333,6 +333,8 @@ public class Line {
             } //After decleration
          //   else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner())
           //       System.out.println("SYNTAX ERROR : This is not a statement");
+            else if((tokens.size() < i + 3))
+                 System.out.println("SYNTAX ERROR : IF Statement Incomplete");
             else if((tokens.size() > i + 1) && !conditionalStatement(i + 1))
                  System.out.println("SYNTAX ERROR : IF Statement cannot be used like this");
             else 
