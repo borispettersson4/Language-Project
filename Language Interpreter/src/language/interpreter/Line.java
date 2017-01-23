@@ -75,7 +75,13 @@ public class Line {
     
     boolean conditionalStatement(int i) {
                   //First Bit
-        return  (((tokens.get(0 + i).isNumberVariable() || tokens.get(0 + i).isNumber() || isArithmeticExpression(0 + i)) 
+        return  (((tokens.get(0 + i).isStringVariable() || tokens.get(0 + i).isString()) 
+                 //Operator
+                 && tokens.get(1 + i).isOperator() && conditionalStatement(2 + i))
+                //Second bit
+                 || (tokens.get(0 + i).isStringVariable() || tokens.get(0 + i).isString()))
+                
+                || (((tokens.get(0 + i).isNumberVariable() || tokens.get(0 + i).isNumber() || isArithmeticExpression(0 + i)) 
                  //Operator
                  && tokens.get(1 + i).isOperator() && conditionalStatement(2 + i))
                 //Second bit
@@ -222,7 +228,7 @@ public class Line {
         //Check if Print
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isPrint()) {
             //Check if there is a Sting
-            if((tokens.size() > i + 1) && !tokens.get(1 + i).isKeyWord() && (tokens.get(1 + i).isString() || tokens.get(1 + i).isVariable() || tokens.get(1 + i).isNumber())) {
+            if(tokens.size() < 3 + i && (tokens.size() > i + 1) && !tokens.get(1 + i).isKeyWord() && (tokens.get(1 + i).isString() || tokens.get(1 + i).isVariable() || tokens.get(1 + i).isNumber())) {
                 System.out.println("Print statement checks out fine");
                 x = true;
             } //After decleration
@@ -339,7 +345,8 @@ public class Line {
         }//Void
     
     void checkSyntax() {
-    if(!(checkAssignmentStatement(0) || checkCommentStatement(0) || checkPrintStatement(0) || checkReadStatement(0) || checkEndStatement(0) || checkIfThenStatement(0)))
-        System.out.println("SYNTAX ERROR : This is not a statement");
+   
+    if(!(tokens.size() > 0) || !(checkAssignmentStatement(0) || checkCommentStatement(0) || checkPrintStatement(0) || checkReadStatement(0) || checkEndStatement(0) || checkIfThenStatement(0)))
+        System.out.println("ERROR : This is not a valid statement");
         }
     }

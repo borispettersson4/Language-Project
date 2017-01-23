@@ -29,10 +29,38 @@ public class SintaxInterpreter {
        
       for(int i = 0; i < tokens.length ; i++) {
           
-          if(!tokens[i].equals("")) {
+          if(tokens[i].charAt(0) != '"') {
+          if(!tokens[i].equals("")) 
           aLine.getTokens().add(new Identifier(tokens[i]));
           }
+          else
+              for(int j = 1; j < tokens.length; j++) {
+              
+                  if(tokens[i].charAt(tokens[i].length() - 1) == '"' && tokens[i].charAt(0) == '"') {
+                      aLine.getTokens().add(new Identifier(tokens[i]));
+                    //  i += j;
+                      break;
+                  }
+                  
+                  else if(tokens.length > i + j && tokens[i + j].charAt(tokens[i + j].length() - 1) == '"') {
+                      tokens[i] = tokens[i] + " " + tokens[i + j];
+                      aLine.getTokens().add(new Identifier(tokens[i]));
+                      i += j;
+                      break;
+                  }
+                  else 
+                      {
+                       tokens[i] = tokens[i] + " " + tokens[i + j];
+                    //  System.out.println("Adding to Word");
+                      }
+              }
+          
+         
        }
+      
+   //   for(int i = 0; i < tokens.length ; i++)
+           //    if(aLine.getTokens().size() > i)
+           //       System.out.println(aLine.getTokens().get(i).getBody());
    
       aLine.checkSyntax();
     
