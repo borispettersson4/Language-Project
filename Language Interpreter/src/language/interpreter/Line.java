@@ -203,13 +203,10 @@ public class Line {
         //Check if Comment
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isComment()) {
             //Check if there is a Sting
-            if((tokens.size() > i + 1) && tokens.get(1 + i).isString()) {
+            if((tokens.size() > i + 1) && !tokens.get(1 + i).isUnknown()) {
                 System.out.println("Comment statement checks out fine");
                 x = true;
-            } //After decleration
-           
-            else if ((tokens.size() > i + 1) && !tokens.get(1 + i).isString())
-                System.out.println("SYNTAX ERROR : You can only remark with a string");
+            } //After decleration        
            
             else {
                  System.out.println("Comment checks out fine");
@@ -324,7 +321,7 @@ public class Line {
                 
                 
                 
-                if (((tokens.size() > i) && tokens.get(i).isThen()) && ((tokens.size() > i + 1) && (checkAssignmentStatement(i + 1) || checkCommentStatement(i + 1) || checkPrintStatement(i + 1)))) {
+                if (((tokens.size() > i) && tokens.get(i).isThen()) && ((tokens.size() > i + 1) && (checkAssignmentStatement(i + 1) || (checkAssignmentStatement(i + 1)) || checkReadStatement(i + 1) || checkPrintStatement(i + 1)))) {
                 System.out.println("Conditional Statement checks out fine");
                 x = true;
                 }
