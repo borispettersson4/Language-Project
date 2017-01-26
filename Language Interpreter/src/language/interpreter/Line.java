@@ -276,9 +276,12 @@ public class Line {
         boolean x = false;
         
         //Check if Print
-        if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isEND()) {
+        if(!tokens.get(0 + i).isUnknown() && (tokens.get(0 + i).isEND()  || tokens.get(0 + i).isPossibleEND())) {
             //Check if there is a Sting
-            if(!(tokens.size() > i + 1)) {
+            if(tokens.get(0 + i).isPossibleEND() && !tokens.get(0 + i).isEND())
+            System.out.println("SYNTAX ERROR : End statement is missing a period");
+            
+            else if(!(tokens.size() > i + 1)) {
                 System.out.println("End statement checks out fine");
                 x = true;
             } //After decleration

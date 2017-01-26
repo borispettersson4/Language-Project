@@ -24,7 +24,9 @@ public class SintaxInterpreter {
        System.out.println("Enter an instruction: ");
        String aString = input.nextLine();
        
-       String[] tokens = aString.split(" ");
+       String[] tokens = aString.split(" +");
+       
+       
        
        
       for(int i = 0; i < tokens.length ; i++) {
@@ -53,8 +55,9 @@ public class SintaxInterpreter {
                        tokens[i] = tokens[i] + " " + tokens[i + j];
                     //  System.out.println("Adding to Word");
                       }
+            //       System.out.println(aLine.getTokens().get(i).getBody());
+                  
               }
-          
          
        }
       
@@ -63,11 +66,6 @@ public class SintaxInterpreter {
            //       System.out.println(aLine.getTokens().get(i).getBody());
    
       aLine.checkSyntax();
-    
-    
-    
-    
-    
     
     
     

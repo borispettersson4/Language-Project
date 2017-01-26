@@ -293,6 +293,13 @@ public class Identifier {
     return x;
    }
     
+     public boolean isPossibleEND(){
+      boolean x = false;
+      if (body.contains("END")||body.contains("end")||body.contains("End")||body.contains("eND"))
+          x = true;
+      return x;
+  }
+    
     public boolean isEND(){
       boolean x = false;
       if (body.equals("END.")||body.equals("end.")||body.equals("End.")||body.equals("eND."))
