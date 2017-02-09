@@ -3,23 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package language.interpreter;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ *___________________________________________________________________________________
+ *                                                                                                                                               
+ *                            Boris M. Ruiz Pettersson                                                        
+ *                                  CECS 3210-22                                                                                     
+ *                                                                                                                  
+ *                     Universidad Politecnica de Puerto Rico                                                                                                  
+ *                                                                                                                                                  
+ *___________________________________________________________________________________ 
  *
+ * @author Boris Ruiz Pettersson
  */
-public class SintaxInterpreter {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) 
-    {
-        
-       Line aLine = new Line();
+public class CodeInterpreter {
+/*
+       Code aCode = new Code();
        Scanner input = new Scanner(System.in);    
        System.out.println("Enter an instruction: ");
        String aString = input.nextLine();
@@ -66,9 +69,6 @@ public class SintaxInterpreter {
                   System.out.println(aLine.getTokens().get(i).getBody());
    
       aLine.checkSyntax();
+    */
     
-    
-    
-    } //End Main
-
-    }     
+}
