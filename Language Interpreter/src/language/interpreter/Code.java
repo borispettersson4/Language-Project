@@ -32,116 +32,157 @@ public class Code {
     public ArrayList<RealVariable> reals = new ArrayList<RealVariable>();
     public ArrayList<StringVariable> strings = new ArrayList<StringVariable>();
     
-    public boolean doAssignment(int i) throws ScriptException{
+    public boolean doAssignment(int i, int j) throws ScriptException{
         boolean x = false;
         
-        if(lines.get(i + 0).checkAssignmentStatement(0)){
+        if(lines.get(i + 0).getTokens().size() > j + 1){
             
-            if(lines.get(i + 0).getTokens().get(0).isIntVariable()) {
-                
+            if(lines.get(i + 0).isAssignment(j) && lines.get(i + 0).getTokens().get(j).isIntVariable() && lines.get(i + 0).getTokens().get(j + 1).isAssigner()) {
                 String expression = "";
                 
                 //Convert the LAO terms to Java
-                for(int k = 0; k < lines.get(i + 0).getTokens().size(); k++) {
-                    if(lines.get(i + 0).getTokens().size() > 2 + k) {
-                        
-                        if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".add.") {
+  
+                 
+                for(int k = 2; k < lines.get(i + 0).getTokens().size(); k++) {
+                    if(lines.get(i + 0).getTokens().size() > k + j) {
+                                                
+                        if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".add.")) {
                            expression += "+";
                            expression += " ";
                         }
                         
-                        else if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".sub.") {
+                        else if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".sub.")) {
                            expression += "-";
                            expression += " ";
                         }
                         
-                        else if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".div.") {
+                        else if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".div.")) {
                            expression += "/";
                            expression += " ";
                         }
                         
-                        else if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".mul.") {
+                        else if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".mul.")) {
                            expression += "*";
                            expression += " ";
                         }
                         else {
-                        expression += lines.get(i + 0).getTokens().get(2 + k).toString();
+                        expression += lines.get(i + 0).getTokens().get(k + j).getBody();
                         expression += " ";
                         }
                         
                     }
                 }
-                
-                               
+              //  System.out.println("Expression is : " + expression);
                 //Parse to Int
                 ScriptEngineManager factory = new ScriptEngineManager();
-                ScriptEngine engine = factory.getEngineByName("JavaScript");
-                int  result = ((Double) engine.eval(expression)).intValue();
+                ScriptEngine engine = factory.getEngineByName("js");
+                int  result = (int) engine.eval(expression);               
                 
                 
                 //Save Data
+                if(!doesIntExist(i,j)) {
                 IntegerVariable a = new IntegerVariable();
                 a.value = result;
-                a.name = lines.get(i + 0).getTokens().get(0).toString();
+                a.name = lines.get(i + 0).getTokens().get(j).getBody();
                 ints.add(a);
+                }
+                else {
+                    
+                      for(int k = 0; k < ints.size() ;k++){
+                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(ints.get(k).name)) {
+                       ints.get(k).name = lines.get(i + 0).getTokens().get(j).getBody();
+                       ints.get(k).value = result;
+                       break; 
+                    }  
+                    
+                }
+                }
+                
+                
             }//Check Integer
             
-            else if(lines.get(i + 0).getTokens().get(0).isRealVariable()) {
+            else if(lines.get(i + 0).isAssignment(j) && lines.get(i + 0).getTokens().get(j).isRealVariable() && lines.get(i + 0).getTokens().get(j + 1).isAssigner()) {
                 
                 String expression = "";
                 
                 //Convert the LAO terms to Java
-                for(int k = 0; k < lines.get(i + 0).getTokens().size(); k++) {
-                    if(lines.get(i + 0).getTokens().size() > 2 + k) {
-                        
-                        if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".add.") {
+                 for(int k = 2; k < lines.get(i + 0).getTokens().size(); k++) {
+                    if(lines.get(i + 0).getTokens().size() > k + j) {
+                                                
+                        if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".add.")) {
                            expression += "+";
                            expression += " ";
                         }
                         
-                        else if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".sub.") {
+                        else if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".sub.")) {
                            expression += "-";
                            expression += " ";
                         }
                         
-                        else if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".div.") {
+                        else if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".div.")) {
                            expression += "/";
                            expression += " ";
                         }
                         
-                        else if(lines.get(i + 0).getTokens().get(2 + k).toString() == ".mul.") {
+                        else if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".mul.")) {
                            expression += "*";
                            expression += " ";
                         }
                         else {
-                        expression += lines.get(i + 0).getTokens().get(2 + k).toString();
+                        expression += lines.get(i + 0).getTokens().get(k + j).getBody();
                         expression += " ";
                         }
                         
                     }
                 }
-                
-                               
-                //Parse to Real
+              //  System.out.println("Expression is : " + expression);
+                //Parse to Int
                 ScriptEngineManager factory = new ScriptEngineManager();
-                ScriptEngine engine = factory.getEngineByName("JavaScript");
-                double  result = ((Double) engine.eval(expression)).doubleValue();
+                ScriptEngine engine = factory.getEngineByName("js");
+                double  result = (double) engine.eval(expression);               
                 
                 
                 //Save Data
+                if(!doesRealExist(i,j)) {
                 RealVariable a = new RealVariable();
                 a.value = result;
-                a.name = lines.get(i + 0).getTokens().get(0).toString();
+                a.name = lines.get(i + 0).getTokens().get(j).getBody();
                 reals.add(a);
+                }
+                else {
+                    
+                      for(int k = 0; k < reals.size() ;k++){
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(reals.get(k).name)) {
+                       reals.get(k).name = lines.get(i + 0).getTokens().get(j).getBody();
+                       reals.get(k).value = result;
+                       break; 
+                    }  
+                    
+                }
+                }
+                
             }//Check Real
             
-             else if(lines.get(i + 0).getTokens().get(0).isStringVariable()) {
+             else if(lines.get(i + 0).getTokens().get(j).isStringVariable() && lines.get(i + 0).getTokens().get(j + 1).isAssigner()) {
                             
                 //Save Data
+                 if(!doesStringExist(i,j)) {
                 StringVariable a = new StringVariable();
-                a.value = lines.get(i + 0).getTokens().get(2).toString();
-                a.name = lines.get(i + 0).getTokens().get(0).toString();
+                a.value = lines.get(i + 0).getTokens().get(2 + j).getBody();
+                a.name = lines.get(i + 0).getTokens().get(j).getBody();
                 strings.add(a);
+                }
+                else {
+                    
+                      for(int k = 0; k < strings.size() ;k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(strings.get(k).name)) {
+                       strings.get(k).name = lines.get(i + 0).getTokens().get(j).getBody();
+                       strings.get(k).value = lines.get(i + 0).getTokens().get(2 + j).getBody();
+                       break; 
+                    }  
+                    
+                }
+                }
             }//Check Real
                       
             x = true;
@@ -150,22 +191,22 @@ public class Code {
         return x;
     }
     
-    public boolean doPrint(int i) {
+    public boolean doPrint(int i, int j) {
         boolean x = false;
         
-        if(lines.get(i + 0).isPrintStatement()) {
+        if(lines.get(i + 0).checkPrintStatement(j)) {
             
-            if(lines.get(i + 0).getTokens().get(1).isString()) {
-                System.out.println(lines.get(i + 0).getTokens().get(1).toString());
+            if(lines.get(i + 0).getTokens().get(1 + j).isString()) {
+                System.out.println(lines.get(i + 0).getTokens().get(1 + j).getBody());
                 x = true;
             }
-            else if(lines.get(i + 0).getTokens().get(1).isIntVariable()) {
+            else if(lines.get(i + 0).getTokens().get(1 + j).isIntVariable()) {
                 
-                for(int k = 0; k < ints.size() ;k++){
-                    if(ints.size() > k + 1 && lines.get(i + 0).getTokens().get(1).toString() == ints.get(k).name) {
+                for(int k = 0; k < ints.size();k++){
+                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(ints.get(k).name)) {
                         System.out.println(ints.get(k).value);
                         x = true;
-                       break; 
+                        break; 
                     }
                     else {
                          System.out.println("ERROR : You cannot print a non-existant variable");
@@ -174,10 +215,10 @@ public class Code {
                     
                 }//FOR
             }//ELSE IF
-            else if(lines.get(i + 0).getTokens().get(1).isRealVariable()) {
+            else if(lines.get(i + 0).getTokens().get(1 + j).isRealVariable()) {
                 
                 for(int k = 0; k < reals.size() ;k++){
-                    if(reals.size() > k + 1 && lines.get(i + 0).getTokens().get(1).toString() == reals.get(k).name) {
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(reals.get(k).name)) {
                         System.out.println(reals.get(k).value);
                         x = true;
                        break; 
@@ -189,10 +230,10 @@ public class Code {
                     
                 }//FOR
             }//ELSE IF
-            else if(lines.get(i + 0).getTokens().get(1).isStringVariable()) {
-                
+            else if(lines.get(i + 0).getTokens().get(1 + j).isStringVariable()) {
+                                
                 for(int k = 0; k < strings.size() ;k++){
-                    if(strings.size() > k + 1 && lines.get(i + 0).getTokens().get(1).toString() == strings.get(k).name) {
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(strings.get(k).name)) {
                         System.out.println(strings.get(k).value);
                         x = true;
                        break; 
@@ -218,24 +259,81 @@ public class Code {
             //If reading an Int
             if(lines.get(i + 0).getTokens().get(1).isIntVariable()){
                 
+                
+                boolean forStatus = false;
             for(int k = 0; k < ints.size() ;k++){
-                    if(ints.size() > k + 1 && lines.get(i + 0).getTokens().get(1).toString() == ints.get(k).name) {
+                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(1).getBody().equals(ints.get(k).name)) {
                          Scanner input = new Scanner(System.in);    
                          ints.get(k).value = input.nextInt();
+                         forStatus = true;
                         x = true;
                        break; 
-                    }
-                    else if(ints.size() > k + 1 && lines.get(i + 0).getTokens().get(1).toString() != ints.get(ints.size()).name) {
+                    }              
+                    
+                }//FOR
+                                    
+               if(!forStatus) {
                          Scanner input = new Scanner(System.in); 
                          IntegerVariable a = new IntegerVariable();
                          a.value = input.nextInt();
-                         a.name = lines.get(i + 0).getTokens().get(1).toString();
+                         a.name = lines.get(i + 0).getTokens().get(1).getBody();
                          ints.add(a);
                         x = true;
-                       break; 
                     }
+            
+            } //IF 
+            
+            //If reading an Reals
+            if(lines.get(i + 0).getTokens().get(1).isRealVariable()){
+                
+                
+                boolean forStatus = false;
+            for(int k = 0; k < reals.size() ;k++){
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(1).getBody().equals(reals.get(k).name)) {
+                         Scanner input = new Scanner(System.in);    
+                         reals.get(k).value = input.nextDouble();
+                         forStatus = true;
+                        x = true;
+                       break; 
+                    }              
                     
                 }//FOR
+                                    
+               if(!forStatus) {
+                         Scanner input = new Scanner(System.in); 
+                         RealVariable a = new RealVariable();
+                         a.value = input.nextDouble();
+                         a.name = lines.get(i + 0).getTokens().get(1).getBody();
+                         reals.add(a);
+                        x = true;
+                    }
+            
+            } //IF 
+            
+            //If reading a String
+            if(lines.get(i + 0).getTokens().get(1).isStringVariable()){
+                
+                boolean forStatus = false;
+            for(int k = 0; k < strings.size() ;k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(1).getBody().equals(strings.get(k).name)) {
+                         Scanner input = new Scanner(System.in);    
+                         strings.get(k).value = input.nextLine();
+                         forStatus = true;
+                        x = true;
+                       break; 
+                    }              
+                    
+                }//FOR
+                                    
+               if(!forStatus) {
+                         Scanner input = new Scanner(System.in); 
+                         StringVariable a = new StringVariable();
+                         a.value = input.nextLine();
+                         a.name = lines.get(i + 0).getTokens().get(1).getBody();
+                         strings.add(a);
+                        x = true;
+                    }
+            
             } //IF 
             
             
@@ -251,46 +349,78 @@ public class Code {
             
             RealVariable a = new RealVariable();
             RealVariable b = new RealVariable();
-            String middle = lines.get(i + 0).getTokens().get(j + 1).toString();
+            String middle = lines.get(i + 0).getTokens().get(j + 1).getBody();
             
             for(int k = 0; k < reals.size() ;k++){
-                    if(reals.size() > k + 1 && lines.get(i + 0).getTokens().get(j + 0).toString() == reals.get(k).name) {
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(j + 0).getBody().equals(reals.get(k).name)) {
                         a = reals.get(k);
                        break; 
                     }
+                    
             }//FOR
             
-            for(int h = 0; h < reals.size() ;h++){
-                    if(reals.size() > h + 1 && lines.get(i + 0).getTokens().get(j + 2).toString() == reals.get(h).name) {
-                        b = reals.get(h);
+            for(int k = 0; k < reals.size() ;k++){
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(j + 2).getBody().equals(reals.get(k).name)) {
+                        b = reals.get(k);
+                       break; 
+                    } 
+            }//FOR
+            
+             for(int k = 0; k < ints.size() ;k++){
+                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(j + 0).getBody().equals(ints.get(k).name)) {
+                        a.value = 0.0 + ints.get(k).value;
+                        a.name = ints.get(k).name;
+                       break; 
+                    }
+                    
+            }//FOR
+            
+            for(int k = 0; k < ints.size() ;k++){
+                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(j + 2).getBody().equals(ints.get(k).name)) {
+                        b.value = 0.0 + ints.get(k).value;
+                        b.name = ints.get(k).name;
                        break; 
                     } 
             }//FOR
                     
-            if(a.name == "" || b.name == ""){
+             // System.out.println(a.value);
+             // System.out.println(b.value);
+            
+            if(a.name.equals("") || b.name.equals("")){
              System.out.println("ERROR: Undiclared variable detected");
              endProgramError();
             }
                     
             //Check Comparisons
-            if(middle == ".eq.") {
-                x = (a.value == b.value);
+            if(middle.equals(".eq.")) {
+                x = (a.value.equals(b.value));
+              //  System.out.println(x);
             }
-            else if(middle == ".ne.") {
-                x = (a.value != b.value);
+            else if(middle.equals(".ne.")) {
+                x = (a.value.equals(b.value));
+             //   System.out.println(a.value != b.value);
             }
-            else if(middle == ".lt.") {
+            else if(middle.equals(".lt.")) {
                 x = (a.value < b.value);
+            //    System.out.println(a.value < b.value);
             }
-            else if(middle == ".le.") {
+            else if(middle.equals(".le.")) {
                 x = (a.value <= b.value);
+            //    System.out.println(a.value <= b.value);
             }
-            else if(middle == ".gt.") {
+            else if(middle.equals(".gt.")) {
                 x = (a.value > b.value);
+            //    System.out.println(a.value > b.value);
             }
-            else if(middle == ".ge.") {
+            else if(middle.equals(".ge.")) {
                 x = (a.value >= b.value);
+           //    System.out.println(a.value >= b.value);
             }
+             else {
+                System.out.println("ERROR: Wrong form of comparison");
+                endProgramError();
+            }
+            
             
         }
         
@@ -298,18 +428,18 @@ public class Code {
             
             StringVariable a = new StringVariable();
             StringVariable b = new StringVariable();
-            String middle = lines.get(i + 0).getTokens().get(j + 1).toString();
+            String middle = lines.get(i + 0).getTokens().get(j + 1).getBody();
             
             for(int k = 0; k < strings.size() ;k++){
-                    if(reals.size() > k + 1 && lines.get(i + 0).getTokens().get(j + 0).toString() == strings.get(k).name) {
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j + 0).getBody().equals(strings.get(k).name)) {
                         a = strings.get(k);
                        break; 
                     }
             }//FOR
             
-            for(int h = 0; h < strings.size() ;h++){
-                    if(reals.size() > h + 1 && lines.get(i + 0).getTokens().get(j + 2).toString() == strings.get(h).name) {
-                        b = strings.get(h);
+            for(int k = 0; k < strings.size() ;k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j + 2).getBody().equals(strings.get(k).name)) {
+                        b = strings.get(k);
                        break; 
                     } 
             }//FOR
@@ -319,14 +449,15 @@ public class Code {
             }
                     
             //Check Comparisons
-            if(middle == ".eq.") {
+            if(middle.equals(".eq.")) {
                 x = (a.value == b.value);
             }
-            else if(middle == ".ne.") {
+            else if(middle.equals(".ne.")) {
                 x = (a.value != b.value);
             }
             else {
                 System.out.println("ERROR: Wrong form of String comparison");
+                endProgramError();
             }
             
         }
@@ -338,18 +469,20 @@ public class Code {
     boolean conditionalStatement(int i, int j){
         boolean x = false;
         
-        if(lines.get(i + 0).getTokens().size() > 3) {
-            
+        if(lines.get(i + 0).getTokens().size() >= 3) {
             
             //Case Method
-            if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).toString() == ".and.") {
+            if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).getBody().equals(".and.")) {
                 x = (conditionalPart(i,j) && conditionalStatement(i,j + 2));
             }
-            if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).toString() == ".or.") {
+            else if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).getBody().equals(".or.")) {
                 x = (conditionalPart(i,j) || conditionalStatement(i,j + 2));
             }
-            if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).toString() == ".nor.") {
+            else if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).getBody().equals(".nor.")) {
                 x = !(conditionalPart(i,j) || conditionalStatement(i,j + 2));
+            }
+            else  {
+                x = (conditionalPart(i,j));
             }
             
             
@@ -363,23 +496,24 @@ public class Code {
         
         if(lines.get(i + 0).isIfStatement(0)){
             
+            boolean forState = false;
           if(conditionalStatement(i + 0, 1)){
-            for(int k = 0; k < lines.get(i + 0).getTokens().size();k++){
-              if(doAssignment(k)) {
+            for(int k = 5; k < lines.get(i + 0).getTokens().size();k++){
+              if(doPrint(i,k) || doAssignment(i,k)) {
                x = true;
+               forState = true;
                   break;
               }
-              else if(doPrint(k)) {
-               x = true;
-                  break;
-              }
-              else {
-                  System.out.println("ERROR : Invalid Then Condition");
-                  endProgramError();
-                  break;
-              }
-            }//FOR
+            }//FOR          
           }//IF
+          else {
+              forState = true;
+          }
+          
+             if(!forState){
+             System.out.println("ERROR : Invalid Then Condition");
+             endProgramError();
+            }
             
         }//Main IF
         
@@ -395,6 +529,42 @@ public class Code {
         return x;
     }
     
+    public boolean doesIntExist(int i, int j){
+         boolean forStatus = false;
+            for(int k = 0; k < ints.size() ;k++){
+                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(ints.get(k).name)) {
+                         forStatus = true;
+                       break; 
+                    }              
+                    
+                }//FOR
+            return forStatus;
+    }
+    
+       public boolean doesRealExist(int i, int j){
+         boolean forStatus = false;
+            for(int k = 0; k < reals.size() ;k++){
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(reals.get(k).name)) {
+                         forStatus = true;
+                       break; 
+                    }              
+                    
+                }//FOR
+            return forStatus;
+    }
+       
+       public boolean doesStringExist(int i, int j){
+         boolean forStatus = false;
+            for(int k = 0; k < strings.size() ;k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(strings.get(k).name)) {
+                         forStatus = true;
+                       break; 
+                    }              
+                    
+                }//FOR
+            return forStatus;
+    }
+            
     public void endProgram(){
         System.out.print("Program End : Build Successful");
         System.exit(0);
@@ -403,6 +573,15 @@ public class Code {
     public void endProgramError(){
         System.out.print("Build Failed : There are compilation errors");
         System.exit(0);
+    }
+    
+    public void execute() throws ScriptException{
+        for(int i = 0; i < lines.size();i++){
+            this.doAssignment(i,0);
+            this.doIfThen(i);
+            this.doPrint(i,0);
+            this.doRead(i);
+        }
     }
 
 }

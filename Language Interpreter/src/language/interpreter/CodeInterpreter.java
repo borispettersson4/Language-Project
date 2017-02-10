@@ -21,10 +21,9 @@ import java.util.Scanner;
  * @author Boris Ruiz Pettersson
  */
 public class CodeInterpreter {
-/*
+
        Code aCode = new Code();
        Scanner input = new Scanner(System.in);    
-       System.out.println("Enter an instruction: ");
        String aString = input.nextLine();
        
        String[] tokens = aString.split(" +");
@@ -32,7 +31,7 @@ public class CodeInterpreter {
        
        
        
-      for(int i = 0; i < tokens.length ; i++) {
+   /*   for(int i = 0; i < tokens.length ; i++) {
           
           if(tokens[i].charAt(0) != '"') {
           if(!tokens[i].equals("")) 
@@ -69,6 +68,6 @@ public class CodeInterpreter {
                   System.out.println(aLine.getTokens().get(i).getBody());
    
       aLine.checkSyntax();
-    */
     
+    */
 }

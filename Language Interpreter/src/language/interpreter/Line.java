@@ -22,6 +22,15 @@ import java.util.ArrayList;
  */
 public class Line {
 
+    @Override
+    public String toString() {
+       String aString = "";
+        for(int i = 0; i < tokens.size();i++) {
+        aString += tokens.get(i).getBody() + " ";
+    }
+      return aString;  
+    }
+
     public ArrayList<Identifier> tokens = new ArrayList<Identifier>();
     public boolean isThereErrors = false;
 
@@ -126,7 +135,7 @@ public class Line {
                 else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isString())
                 System.out.println("SYNTAX ERROR : Cannot convert Real to String");
                 else if (isArithmeticExpression(2 + i)) {
-                System.out.println("Real variable assignment checks out fine");
+            //    System.out.println("Real variable assignment checks out fine");
                 x = true;
                 }
                 else 
@@ -152,7 +161,7 @@ public class Line {
                 else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
                 System.out.println("SYNTAX ERROR : Cannot convert Int to Real");
                 else if (isArithmeticExpression(2 + i)) {
-                System.out.println("Int variable assignment checks out fine");
+       //         System.out.println("Int variable assignment checks out fine");
                 x = true;
                 }
                 else 
@@ -179,7 +188,7 @@ public class Line {
                 else if (tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
                 System.out.println("SYNTAX ERROR : Cannot convert String to Real");
                 else if (tokens.get(2 + i).isString() || tokens.get(2 + i).isStringVariable()) {
-                System.out.println("String assignment variable checks out fine");
+            //    System.out.println("String assignment variable checks out fine");
                 x = true;
                 }
                 else 
@@ -204,12 +213,12 @@ public class Line {
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isComment()) {
             //Check if there is a Sting
             if((tokens.size() > i + 1) && !tokens.get(1 + i).isUnknown()) {
-                System.out.println("Comment statement checks out fine");
+          //      System.out.println("Comment statement checks out fine");
                 x = true;
             } //After decleration        
            
             else {
-                 System.out.println("Comment checks out fine");
+              //   System.out.println("Comment checks out fine");
                  x = true;
             }
         } //After Decleration
@@ -226,7 +235,7 @@ public class Line {
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isPrint()) {
             //Check if there is a Sting
             if(tokens.size() < 3 + i && (tokens.size() > i + 1) && !tokens.get(1 + i).isKeyWord() && (tokens.get(1 + i).isString() || tokens.get(1 + i).isVariable() || tokens.get(1 + i).isNumber())) {
-                System.out.println("Print statement checks out fine");
+            //    System.out.println("Print statement checks out fine");
                 x = true;
             } //After decleration
            
@@ -234,7 +243,7 @@ public class Line {
                 System.out.println("SYNTAX ERROR : You can only print a value");
            
             else {
-                 System.out.println("Print checks out fine");
+            //     System.out.println("Print checks out fine");
                  x = true;
             }
         } //After Decleration
@@ -251,7 +260,7 @@ public class Line {
         if(!tokens.get(0 + i).isUnknown() && tokens.get(0 + i).isRead()) {
             //Check if there is a String
             if((tokens.size() > i + 1) && !tokens.get(1 + i).isKeyWord() && tokens.get(1 + i).isVariable()) {
-                System.out.println("Read statement checks out fine");
+            //    System.out.println("Read statement checks out fine");
                 x = true;
             } //After decleration
            
@@ -279,7 +288,7 @@ public class Line {
             System.out.println("SYNTAX ERROR : End statement is missing a period");
             
             else if(!(tokens.size() > i + 1)) {
-                System.out.println("End statement checks out fine");
+        //        System.out.println("End statement checks out fine");
                 x = true;
             } //After decleration
            
@@ -322,7 +331,7 @@ public class Line {
                 
                 
                 if (((tokens.size() > i) && tokens.get(i).isThen()) && ((tokens.size() > i + 1) && (checkAssignmentStatement(i + 1) || (checkAssignmentStatement(i + 1)) || checkReadStatement(i + 1) || checkPrintStatement(i + 1)))) {
-                System.out.println("Conditional Statement checks out fine");
+      //          System.out.println("Conditional Statement checks out fine");
                 x = true;
                 }
                 else if(!(tokens.size() > i))
