@@ -38,6 +38,7 @@ public class Code {
         if(lines.get(i + 0).getTokens().size() > j + 1){
             
             if(lines.get(i + 0).isAssignment(j) && lines.get(i + 0).getTokens().get(j).isIntVariable() && lines.get(i + 0).getTokens().get(j + 1).isAssigner()) {
+
                 String expression = "";
                 
                 //Convert the LAO terms to Java
@@ -456,7 +457,7 @@ public class Code {
                 x = (a.value != b.value);
             }
             else {
-                System.out.println("ERROR: Wrong form of String comparison");
+                System.out.println("ERROR: Wrong form of comparison");
                 endProgramError();
             }
             
@@ -466,26 +467,34 @@ public class Code {
         return x;
     }
     
+    int offsetNumber = 0;
+    
     boolean conditionalStatement(int i, int j){
         boolean x = false;
-        
         if(lines.get(i + 0).getTokens().size() >= 3) {
-            
+       
             //Case Method
-            if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).getBody().equals(".and.")) {
-                x = (conditionalPart(i,j) && conditionalStatement(i,j + 2));
+            if((conditionalPart(i,j) || !conditionalPart(i,j)) && lines.get(i + 0).getTokens().get(3 + j).getBody().equals(".or.")) {
+                offsetNumber = j + 8;
+                x = ((!conditionalPart(i,j) || conditionalPart(i,j)) || conditionalStatement(i,j + 8));
             }
-            else if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).getBody().equals(".or.")) {
-                x = (conditionalPart(i,j) || conditionalStatement(i,j + 2));
+            else if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(3 + j).getBody().equals(".and.")) {
+                 offsetNumber = j + 4;
+                x = (conditionalPart(i,j) && conditionalStatement(i,j + 4));
+        //      System.out.println(offsetNumber);
             }
-            else if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(5 + j).getBody().equals(".nor.")) {
-                x = !(conditionalPart(i,j) || conditionalStatement(i,j + 2));
+            else if(conditionalPart(i,j) && lines.get(i + 0).getTokens().get(3 + j).getBody().equals(".not.")) {
+                x = (!conditionalPart(i,j) && !conditionalStatement(i,j + 4));
+        //      System.out.println(offsetNumber);
             }
             else  {
+                offsetNumber = j + 4;
                 x = (conditionalPart(i,j));
+            //    System.out.println(lines.get(i + 0).getTokens().get(j).getBody());
+            //    System.out.println(x);
             }
             
-            
+          // offsetNumber = j;
         }
         
         return x;
@@ -495,18 +504,16 @@ public class Code {
         boolean x = false;
         
         if(lines.get(i + 0).isIfStatement(0)){
-            
             boolean forState = false;
           if(conditionalStatement(i + 0, 1)){
-            for(int k = 5; k < lines.get(i + 0).getTokens().size();k++){
-              if(doPrint(i,k) || doAssignment(i,k)) {
+         //     System.out.println("TRUE");
+              if(doPrint(i,offsetNumber) || doAssignment(i,offsetNumber)){
                x = true;
                forState = true;
-                  break;
-              }
-            }//FOR          
+              }    
           }//IF
           else {
+              System.out.println("FALSE");
               forState = true;
           }
           
@@ -529,7 +536,7 @@ public class Code {
         return x;
     }
     
-    public boolean doesIntExist(int i, int j){
+       public boolean doesIntExist(int i, int j){
          boolean forStatus = false;
             for(int k = 0; k < ints.size() ;k++){
                     if(ints.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(ints.get(k).name)) {

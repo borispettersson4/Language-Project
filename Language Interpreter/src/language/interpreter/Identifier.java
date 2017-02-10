@@ -49,10 +49,10 @@ public class Identifier {
       boolean x = false;
       
       if((body.charAt(0) >= 'a' && body.charAt(0) <= 'z') || (body.charAt(0) >= 'A' && body.charAt(0) <= 'Z'))
-          for(int i = 0; i < body.length() ; i++)
-              if((body.charAt(i) >= '0' && body.charAt(i) <= '9'))
-          x = false;
-      else
+          //for(int i = 0; i < body.length() ; i++)
+        //      if((body.charAt(i) >= '0' && body.charAt(i) <= '9'))
+      //    x = false;
+    //  else
           x = true;
       
       return x;
