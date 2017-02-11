@@ -3,36 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package language.interpreter;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import javax.script.ScriptException;
 
 /**
- *___________________________________________________________________________________
- *                                                                                                                                               
- *                            Boris M. Ruiz Pettersson                                                        
- *                                  CECS 3210-22                                                                                     
- *                                                                                                                  
- *                     Universidad Politecnica de Puerto Rico                                                                                                  
- *                                                                                                                                                  
- *___________________________________________________________________________________ 
  *
- * @author Boris Ruiz Pettersson
  */
 public class CodeInterpreter {
-
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws ScriptException 
+    {
+        
        Code aCode = new Code();
        Scanner input = new Scanner(System.in);    
-       String aString = input.nextLine();
+       System.out.println("Enter your instructions. If pressed enter twice, program will execute.");
        
-       String[] tokens = aString.split(" +");
+       String myString = input.nextLine();
+       aCode.lines.add(scanLine(myString));
+       
+       for(int i = 0; !aCode.lines.get(i).isEndStatement(); i++) {
+           myString = input.nextLine();
+           aCode.lines.add(scanLine(myString));
+       }
+       
+       System.out.println();
+       System.out.println();
+       System.out.println("---------------------- CODE EXECUTION ----------------------");
+       System.out.println();
+       aCode.execute();
        
        
-       
-       
-   /*   for(int i = 0; i < tokens.length ; i++) {
-          
+    } //End Main
+    
+    public static Line scanLine(String aString){
+        
+      Line aLine = new Line();
+      String[] tokens = aString.split(" +");
+      
+      for(int i = 0; i < tokens.length ; i++) {
           if(tokens[i].charAt(0) != '"') {
           if(!tokens[i].equals("")) 
           aLine.getTokens().add(new Identifier(tokens[i]));
@@ -57,17 +71,20 @@ public class CodeInterpreter {
                        tokens[i] = tokens[i] + " " + tokens[i + j];
                     //  System.out.println("Adding to Word");
                       }
-                //   System.out.println(aLine.getTokens().get(i).getBody());
+            //       System.out.println(aLine.getTokens().get(i).getBody());
                   
               }
          
        }
       
-               for(int i = 0; i < tokens.length ; i++)
-               if(aLine.getTokens().size() > i)
-                  System.out.println(aLine.getTokens().get(i).getBody());
+   //   for(int i = 0; i < tokens.length ; i++)
+           //    if(aLine.getTokens().size() > i)
+           //       System.out.println(aLine.getTokens().get(i).getBody());
    
       aLine.checkSyntax();
     
-    */
-}
+    return aLine;
+    
+    }
+
+    }     

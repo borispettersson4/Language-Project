@@ -7,46 +7,30 @@ package language.interpreter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.script.ScriptException;
 
 /**
  *
  */
 public class SintaxInterpreter {
-    
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ScriptException 
+    public static void main(String[] args) 
     {
         
-       Code aCode = new Code();
+       Line aLine = new Line();
        Scanner input = new Scanner(System.in);    
-       System.out.println("Enter your instructions. If pressed enter twice, program will execute.");
+       System.out.println("Enter an instruction: ");
+       String aString = input.nextLine();
        
-       String myString = input.nextLine();
-       aCode.lines.add(scanLine(myString));
-       
-       for(int i = 0; !aCode.lines.get(i).isEndStatement(); i++) {
-           myString = input.nextLine();
-           aCode.lines.add(scanLine(myString));
-       }
-       
-       System.out.println();
-       System.out.println();
-       System.out.println("---------------------- CODE EXECUTION ----------------------");
-       System.out.println();
-       aCode.execute();
+       String[] tokens = aString.split(" +");
        
        
-    } //End Main
-    
-    public static Line scanLine(String aString){
-        
-      Line aLine = new Line();
-      String[] tokens = aString.split(" +");
-      
+       
+       
       for(int i = 0; i < tokens.length ; i++) {
+          aLine.display = true;
           if(tokens[i].charAt(0) != '"') {
           if(!tokens[i].equals("")) 
           aLine.getTokens().add(new Identifier(tokens[i]));
@@ -83,8 +67,8 @@ public class SintaxInterpreter {
    
       aLine.checkSyntax();
     
-    return aLine;
     
-    }
+    
+    } //End Main
 
     }     

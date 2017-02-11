@@ -21,6 +21,8 @@ import java.util.ArrayList;
  * @author Boris Ruiz Pettersson
  */
 public class Line {
+    
+    public boolean display; //Decides wether or not to display info 
 
     @Override
     public String toString() {
@@ -128,23 +130,35 @@ public class Line {
             //Check if there is an assigner
             if((tokens.size() > i + 1) && tokens.get(1 + i).isAssigner()) {
                 
-                if(tokens.size() < 2 + i)
+                if(tokens.size() < 2 + i) {
+                    if(display) 
                 System.out.println("SYNTAX ERROR : Assigner cannot be empty ");
-                else if (tokens.get(2 + i).isKeyWord())
+                }
+                else if (tokens.get(2 + i).isKeyWord()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Illegal start of expression");
-                else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isString())
+                }
+                else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isString()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Cannot convert Real to String");
+                }
                 else if (isArithmeticExpression(2 + i)) {
             //    System.out.println("Real variable assignment checks out fine");
                 x = true;
                 }
-                else 
+                else {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Missing Operator or Operator Mismatch");
+                }
             } //After decleration
-            else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner())
+            else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner()) {
+                if(display)
                  System.out.println("SYNTAX ERROR : This is not a statement");
-            else
+            }
+            else {
+                    if(display)
                  System.out.println("SYNTAX ERROR : Variable not initialized ");
+            }
         } //After Decleration
         
         //Check if declared Int Variable
@@ -152,26 +166,39 @@ public class Line {
             //Check if there is an assigner
             if((tokens.size() > i + 1) && tokens.get(1 + i).isAssigner()) {
                 
-                if(tokens.size() < 2 + i)
+                if(tokens.size() < 2 + i) {
+                    if(display) 
                 System.out.println("SYNTAX ERROR : Assignment cannot be empty ");
-                else if (tokens.get(2 + i).isKeyWord())
+                }
+                else if (tokens.get(2 + i).isKeyWord()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Illegal start of expression");
-                else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isString())
+                }
+                else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isString()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Cannot convert Int to String");
-                else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
+                }
+                else if (tokens.get(2 + i).isStringVariable() || tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Cannot convert Int to Real");
+                }
                 else if (isArithmeticExpression(2 + i)) {
        //         System.out.println("Int variable assignment checks out fine");
                 x = true;
                 }
-                else 
+                else {
+                    if(display) 
                 System.out.println("SYNTAX ERROR : Missing Operator or Operator Mismatch");
-
+                }
             } //After decleration
-            else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner())
+            else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner()) {
+                if(display)
                  System.out.println("SYNTAX ERROR : This is not a statement");
-            else
+            }
+            else {
+                    if(display)
                  System.out.println("SYNTAX ERROR : Variable not initialized ");
+            }
         } //After Decleration
         
           //Check if declared String Variable
@@ -179,26 +206,40 @@ public class Line {
             //Check if there is an assigner
             if((tokens.size() > i + 1) && tokens.get(1 + i).isAssigner()) {
                 
-                if(tokens.size() < 2 + i)
+                if(tokens.size() < 2 + i) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Assignment cannot be empty ");
-                else if (tokens.get(2 + i).isKeyWord())
+                }
+                else if (tokens.get(2 + i).isKeyWord()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Illegal start of expression");
-                else if (tokens.get(2 + i).isIntVariable() || tokens.get(2 + i).isInteger())
+                }
+                else if (tokens.get(2 + i).isIntVariable() || tokens.get(2 + i).isInteger()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Cannot convert String to Int");
-                else if (tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble())
+                }
+                else if (tokens.get(2 + i).isRealVariable() || tokens.get(2 + i).isDouble()) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Cannot convert String to Real");
+                }
                 else if (tokens.get(2 + i).isString() || tokens.get(2 + i).isStringVariable()) {
             //    System.out.println("String assignment variable checks out fine");
                 x = true;
                 }
-                else 
+                else {
+                    if(display)
                 System.out.println("SYNTAX ERROR : Missing Operator or Operator Mismatch");
+                }
 
             } //After decleration
-            else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner())
+            else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner()) {
+                if(display)
                  System.out.println("SYNTAX ERROR : This is not a statement");
-            else
+            }
+            else {
+                    if(display)
                  System.out.println("SYNTAX ERROR : Variable not initialized ");
+            }
         } //After Decleration
         
         return x; // End of Check
@@ -239,8 +280,10 @@ public class Line {
                 x = true;
             } //After decleration
            
-            else if ((tokens.size() > i + 1) && (!tokens.get(1 + i).isString() || !tokens.get(1 + i).isVariable() || !tokens.get(1 + i).isNumber() || tokens.get(1 + i).isKeyWord()))
+            else if ((tokens.size() > i + 1) && (!tokens.get(1 + i).isString() || !tokens.get(1 + i).isVariable() || !tokens.get(1 + i).isNumber() || tokens.get(1 + i).isKeyWord())) {
+                if(display)
                 System.out.println("SYNTAX ERROR : You can only print a value");
+            }
            
             else {
             //     System.out.println("Print checks out fine");
@@ -264,11 +307,11 @@ public class Line {
                 x = true;
             } //After decleration
            
-            else if ((tokens.size() > i + 1) && (!tokens.get(1 + i).isVariable() ||  tokens.get(1 + i).isKeyWord()))
+            else if ((tokens.size() > i + 1) && (!tokens.get(1 + i).isVariable() ||  tokens.get(1 + i).isKeyWord())) {
+                if(display)
                 System.out.println("SYNTAX ERROR : You can only read a variable");
-           
+            }
             else {
-                 System.out.println("SYNTAX ERROR : Read statement doensn't have parameter");
                  x = true;
             }
         } //After Decleration
@@ -284,8 +327,10 @@ public class Line {
         //Check if Print
         if(!tokens.get(0 + i).isUnknown() && (tokens.get(0 + i).isEND()  || tokens.get(0 + i).isPossibleEND())) {
             //Check if there is a Sting
-            if(tokens.get(0 + i).isPossibleEND() && !tokens.get(0 + i).isEND())
+            if(tokens.get(0 + i).isPossibleEND() && !tokens.get(0 + i).isEND()) {
+                if(display)
             System.out.println("SYNTAX ERROR : End statement is missing a period");
+            }
             
             else if(!(tokens.size() > i + 1)) {
         //        System.out.println("End statement checks out fine");
@@ -293,8 +338,8 @@ public class Line {
             } //After decleration
            
             else {
+                if(display)
                  System.out.println("SYNTAX ERROR : End statement should the last statement in the program");
-                 x = true;
             }
         } //After Decleration
         
@@ -320,6 +365,7 @@ public class Line {
                  if((tokens.get(i).isOperator() || tokens.get(i).isMathOperator()))   {}
                  else if (!tokens.get(i).isThen())
                  {
+                     if(display)
                   System.out.println("SYNTAX ERROR : Missing Operator or Operator Mismatch");
                   break;
                  }
@@ -334,20 +380,30 @@ public class Line {
       //          System.out.println("Conditional Statement checks out fine");
                 x = true;
                 }
-                else if(!(tokens.size() > i))
+                else if(!(tokens.size() > i)) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : THEN Statement is missing");
+                }
                 
-                else if(!(tokens.size() > i + 1))
+                else if(!(tokens.size() > i + 1)) {
+                    if(display)
                 System.out.println("SYNTAX ERROR : THEN Statement Incomplete");
+                }
             } //After decleration
          //   else if((tokens.size() > i + 1) && !tokens.get(1 + i).isAssigner())
           //       System.out.println("SYNTAX ERROR : This is not a statement");
-            else if((tokens.size() < i + 3))
+            else if((tokens.size() < i + 3)) {
+                if(display)
                  System.out.println("SYNTAX ERROR : IF Statement Incomplete");
-            else if((tokens.size() > i + 1) && !conditionalStatement(i + 1))
+            }
+            else if((tokens.size() > i + 1) && !conditionalStatement(i + 1)) {
+                if(display)
                  System.out.println("SYNTAX ERROR : IF Statement cannot be used like this");
-            else 
+            }
+            else {
+                if(display)
                  System.out.println("SYNTAX ERROR : IF Statement Incomplete");
+            }
             
         } //After Decleration
         
@@ -355,9 +411,13 @@ public class Line {
         
         }//Void
     
-    void checkSyntax() {
-   
-    if(!(tokens.size() > 0) || !(checkAssignmentStatement(0) || checkCommentStatement(0) || checkPrintStatement(0) || checkReadStatement(0) || checkEndStatement(0) || checkIfThenStatement(0)))
+    boolean checkSyntax() {
+    boolean x = true;
+    if(!(tokens.size() > 0) || !(checkAssignmentStatement(0) || checkCommentStatement(0) || checkPrintStatement(0) || checkReadStatement(0) || checkEndStatement(0) || checkIfThenStatement(0))) {
+       x = false;
+        if(display)
         System.out.println("ERROR : This is not a valid statement");
         }
+        return x;
     }
+}

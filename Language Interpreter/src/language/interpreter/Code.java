@@ -26,11 +26,15 @@ import javax.script.ScriptException;
  */
 public class Code {
     
+    private boolean display = true;
+    
     public ArrayList<Line> lines = new ArrayList<Line>();
     //Variable DataBase
     public ArrayList<IntegerVariable> ints = new ArrayList<IntegerVariable>();
     public ArrayList<RealVariable> reals = new ArrayList<RealVariable>();
     public ArrayList<StringVariable> strings = new ArrayList<StringVariable>();
+    
+    private boolean error = false;
     
     public boolean doAssignment(int i, int j) throws ScriptException{
         boolean x = false;
@@ -77,7 +81,8 @@ public class Code {
                 //Parse to Int
                 ScriptEngineManager factory = new ScriptEngineManager();
                 ScriptEngine engine = factory.getEngineByName("js");
-                int  result = (int) engine.eval(expression);               
+                
+                int result = (int) engine.eval(expression);      
                 
                 
                 //Save Data
@@ -197,24 +202,44 @@ public class Code {
         
         if(lines.get(i + 0).checkPrintStatement(j)) {
             
-            if(lines.get(i + 0).getTokens().get(1 + j).isString()) {
+            if(ints.size() >= 1 && lines.get(i + 0).getTokens().get(1 + j).isString()) {
                 System.out.println(lines.get(i + 0).getTokens().get(1 + j).getBody());
                 x = true;
             }
             else if(lines.get(i + 0).getTokens().get(1 + j).isIntVariable()) {
-                
+                boolean isVariablePresent = false;
                 for(int k = 0; k < ints.size();k++){
                     if(ints.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(ints.get(k).name)) {
                         System.out.println(ints.get(k).value);
                         x = true;
+                        isVariablePresent = true;
                         break; 
                     }
-                    else {
+                     }//FOR
+                for(int k = 0; k < reals.size();k++){
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(reals.get(k).name)) {
+                        System.out.println(reals.get(k).value);
+                        x = true;
+                        isVariablePresent = true;
+                        break; 
+                    }
+                     }//FOR
+                for(int k = 0; k < strings.size();k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(strings.get(k).name)) {
+                        System.out.println(strings.get(k).value);
+                        x = true;
+                        isVariablePresent = true;
+                        break; 
+                    }
+                     }//FOR
+                    if (!isVariablePresent) {
+                        if(display) {
                          System.out.println("ERROR : You cannot print a non-existant variable");
+                        }
                          endProgramError();
                     }
                     
-                }//FOR
+               
             }//ELSE IF
             else if(lines.get(i + 0).getTokens().get(1 + j).isRealVariable()) {
                 
@@ -225,7 +250,9 @@ public class Code {
                        break; 
                     }
                     else {
+                        if(display) {
                          System.out.println("ERROR : You cannot print a non-existant variable");
+                        }
                          endProgramError();
                     }
                     
@@ -240,7 +267,9 @@ public class Code {
                        break; 
                     }
                     else {
+                        if(display) {
                          System.out.println("ERROR : You cannot print a non-existant variable");
+                        }
                          endProgramError();
                     }
                     
@@ -342,6 +371,8 @@ public class Code {
         
         return x;
     }
+    
+    boolean conditionState = true;
       
     boolean conditionalPart(int i, int j){
         boolean x = false;
@@ -388,7 +419,10 @@ public class Code {
              // System.out.println(b.value);
             
             if(a.name.equals("") || b.name.equals("")){
+                if(display && conditionState) {
              System.out.println("ERROR: Undiclared variable detected");
+             conditionState = false;
+                }
              endProgramError();
             }
                     
@@ -418,7 +452,9 @@ public class Code {
            //    System.out.println(a.value >= b.value);
             }
              else {
+                if(display) {
                 System.out.println("ERROR: Wrong form of comparison");
+                }
                 endProgramError();
             }
             
@@ -446,7 +482,11 @@ public class Code {
             }//FOR
                     
             if(a.name == "" || b.name == ""){
+                if(display && conditionState) {
              System.out.println("ERROR: Undiclared variable detected");
+             conditionState = false;
+                }
+             endProgramError();
             }
                     
             //Check Comparisons
@@ -457,7 +497,9 @@ public class Code {
                 x = (a.value != b.value);
             }
             else {
+                if(display) {
                 System.out.println("ERROR: Wrong form of comparison");
+                }
                 endProgramError();
             }
             
@@ -513,7 +555,7 @@ public class Code {
               }    
           }//IF
           else {
-              System.out.println("FALSE");
+         //     System.out.println("FALSE");
               forState = true;
           }
           
@@ -569,7 +611,36 @@ public class Code {
                     }              
                     
                 }//FOR
-            return forStatus;
+            return forStatus
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    ;
     }
             
     public void endProgram(){
@@ -578,17 +649,63 @@ public class Code {
     }
     
     public void endProgramError(){
-        System.out.print("Build Failed : There are compilation errors");
-        System.exit(0);
+        error = true;
     }
     
     public void execute() throws ScriptException{
+        
+        boolean syntaxError = false;
+        
+        //Check Syntax First
+        for(int k = 0; k < lines.size();k++){
+             lines.get(k).display = false;
+            if(!lines.get(k).checkSyntax()) {
+                 System.out.println();
+                 System.out.println("Error at line " + (k + 1));
+                 lines.get(k).display = true;
+                 lines.get(k).checkSyntax();                 
+                 syntaxError = true;
+            }
+            }//FOR
+            
+        //Check if error from Compilation
         for(int i = 0; i < lines.size();i++){
-            this.doAssignment(i,0);
-            this.doIfThen(i);
-            this.doPrint(i,0);
-            this.doRead(i);
+            
+            //Execute Code
+        display = false;
+            if(!syntaxError && !error) {
+                doAssignment(i,0);
+                doPrint(i,0);          
+                doRead(i);
+                doIfThen(i);
+              if(error) {
+                 
+        System.out.println();
+        System.out.println("Error at line " + (i + 1));
+        display = true;
+        doAssignment(i,0);
+        doPrint(i,0);
+        doRead(i);
+        doIfThen(i);
+              }
+            
+            }
+              
+        }//FOR
+        
+        if(syntaxError) {
+            System.out.println();
+            System.out.println("Execution Failed : There are syntax errors");
         }
-    }
+        
+        if(error) {
+            System.out.println();
+            System.out.println("Execution Failed : There are logic errors");
+        }
+        
+            
+        
+    }//Function
+    
 
 }
