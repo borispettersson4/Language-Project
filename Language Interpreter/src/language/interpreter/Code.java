@@ -202,11 +202,16 @@ public class Code {
         
         if(lines.get(i + 0).checkPrintStatement(j)) {
             
-            if(ints.size() >= 1 && lines.get(i + 0).getTokens().get(1 + j).isString()) {
+            if(lines.get(i + 0).getTokens().size() < 1) {
+                System.out.println("");
+                x = true;
+            }
+            
+            else if(lines.get(i + 0).getTokens().size() > 1 && ints.size() >= 1 && lines.get(i + 0).getTokens().get(1 + j).isString()) {
                 System.out.println(lines.get(i + 0).getTokens().get(1 + j).getBody());
                 x = true;
             }
-            else if(lines.get(i + 0).getTokens().get(1 + j).isIntVariable()) {
+            else if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isIntVariable()) {
                 boolean isVariablePresent = false;
                 for(int k = 0; k < ints.size();k++){
                     if(ints.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(ints.get(k).name)) {
@@ -241,7 +246,7 @@ public class Code {
                     
                
             }//ELSE IF
-            else if(lines.get(i + 0).getTokens().get(1 + j).isRealVariable()) {
+            else if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isRealVariable()) {
                 
                 for(int k = 0; k < reals.size() ;k++){
                     if(reals.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(reals.get(k).name)) {
@@ -258,7 +263,7 @@ public class Code {
                     
                 }//FOR
             }//ELSE IF
-            else if(lines.get(i + 0).getTokens().get(1 + j).isStringVariable()) {
+            else if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isStringVariable()) {
                                 
                 for(int k = 0; k < strings.size() ;k++){
                     if(strings.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(strings.get(k).name)) {

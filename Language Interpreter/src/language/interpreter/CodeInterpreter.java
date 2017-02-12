@@ -5,7 +5,14 @@
  */
 package language.interpreter;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import static java.nio.file.Files.lines;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import javax.script.ScriptException;
 
@@ -14,23 +21,27 @@ import javax.script.ScriptException;
  */
 public class CodeInterpreter {
     
+    public static String filePath; //Path of input file
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ScriptException 
+    public void runProgram() throws ScriptException, IOException 
     {
         
        Code aCode = new Code();
-       Scanner input = new Scanner(System.in);    
-       System.out.println("Enter your instructions. If pressed enter twice, program will execute.");
+       Scanner s = new Scanner(new File(filePath));
+       List<String> fileLines = Files.readAllLines(Paths.get(filePath));
+       for(String line:fileLines){
+          aCode.lines.add(scanLine(line));
+     }
+     
        
-       String myString = input.nextLine();
-       aCode.lines.add(scanLine(myString));
        
-       for(int i = 0; !aCode.lines.get(i).isEndStatement(); i++) {
-           myString = input.nextLine();
-           aCode.lines.add(scanLine(myString));
-       }
+     //  String myString = input.nextLine();
+    //   aCode.lines.add(scanLine(myString));
+       
+       
        
        System.out.println();
        System.out.println();
