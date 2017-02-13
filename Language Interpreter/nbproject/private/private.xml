@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jorge/Desktop/ProgLang/Language-Project/Language%20Interpreter/src/language/interpreter/Identifier.java</file>
-            <file>file:/C:/Users/Jorge/Desktop/ProgLang/Language-Project/Language%20Interpreter/src/language/interpreter/TokenInterpreter.java</file>
-            <file>file:/C:/Users/Jorge/Desktop/ProgLang/Language-Project/Language%20Interpreter/src/language/interpreter/SintaxInterpreter.java</file>
-            <file>file:/C:/Users/Jorge/Desktop/ProgLang/Language-Project/Language%20Interpreter/src/language/interpreter/Line.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/Code.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/RealVariable.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/ProgramForm.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/Line.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/CodeInterpreter.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/SintaxInterpreter.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/Identifier.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/IntegerVariable.java</file>
+            <file>file:/C:/Users/Boris/Desktop/PROG%20PROJ/Language-Project/Language%20Interpreter/src/language/interpreter/StringVariable.java</file>
         </group>
     </open-files>
 </project-private>

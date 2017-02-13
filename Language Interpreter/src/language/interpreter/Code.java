@@ -71,9 +71,22 @@ public class Code {
                            expression += " ";
                         }
                         else {
-                        expression += lines.get(i + 0).getTokens().get(k + j).getBody();
-                        expression += " ";
-                        }
+                            boolean forState = false;
+                            for(int p = 0; p < ints.size();p++) {
+                                if(lines.get(i + 0).getTokens().get(k + j).getBody().equals(ints.get(p).name)) {
+                                  expression += ints.get(p).value;
+                                  expression += " ";  
+                                  forState = true;
+                                  break;
+                                }
+                            }
+                            
+                            if(!forState) {
+                                expression += lines.get(i + 0).getTokens().get(k + j).getBody();
+                                expression += " ";  
+                            }
+                        
+                        }//ELSE
                         
                     }
                 }
@@ -113,6 +126,7 @@ public class Code {
                 
                 //Convert the LAO terms to Java
                  for(int k = 2; k < lines.get(i + 0).getTokens().size(); k++) {
+             //        System.out.print(expression);
                     if(lines.get(i + 0).getTokens().size() > k + j) {
                                                 
                         if(lines.get(i + 0).getTokens().get(k + j).getBody().contains(".add.")) {
@@ -135,8 +149,29 @@ public class Code {
                            expression += " ";
                         }
                         else {
-                        expression += lines.get(i + 0).getTokens().get(k + j).getBody();
-                        expression += " ";
+                         boolean forState = false;
+                            for(int p = 0; p < reals.size();p++) {
+                                if(reals.size() > p && lines.get(i + 0).getTokens().get(k + j).getBody().equals(reals.get(p).name)) {
+                                  expression += reals.get(p).value + "";
+                                  expression += " ";  
+                                  forState = true;
+                                  break;
+                                }
+                            }
+                            
+                            for(int p = 0; p < ints.size();p++) {
+                                if(ints.size() > p && lines.get(i + 0).getTokens().get(k + j).getBody().equals(ints.get(p).name)) {
+                                  expression += ints.get(p).value + "";
+                                  expression += " ";  
+                                  forState = true;
+                                  break;
+                                }
+                            }
+                            
+                            if(!forState) {
+                                expression += lines.get(i + 0).getTokens().get(k + j).getBody();
+                                expression += " ";  
+                            }
                         }
                         
                     }
@@ -169,13 +204,88 @@ public class Code {
                 
             }//Check Real
             
-             else if(lines.get(i + 0).getTokens().get(j).isStringVariable() && lines.get(i + 0).getTokens().get(j + 1).isAssigner()) {
-                            
-                //Save Data
-                 if(!doesStringExist(i,j)) {
-                StringVariable a = new StringVariable();
+            //Check Strings
+             else if(lines.get(i + 0).getTokens().get(j).isStringVariable() && lines.get(i + 0).getTokens().get(j + 1).isAssigner()) {    
+               
+                if(lines.get(i).getTokens().size() > 3 && lines.get(i).getTokens().get(j + 3).getBody().equals(".add.") && lines.get(i).getTokens().get(j + 4).isString()) {
+                    //Save Data
+                if(!doesStringExist(i,j)) {
+                StringVariable a = new StringVariable();   
+                a.value = lines.get(i + 0).getTokens().get(2 + j).getBody() + lines.get(i + 0).getTokens().get(4 + j).getBody();
+                a.name = lines.get(i + 0).getTokens().get(j).getBody();
+                strings.add(a);
+                }
+                else {
+                    
+                      for(int k = 0; k < strings.size() ;k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(strings.get(k).name)) {
+                       strings.get(k).name = lines.get(i + 0).getTokens().get(j).getBody();
+                       strings.get(k).value = lines.get(i + 0).getTokens().get(2 + j).getBody() + lines.get(i + 0).getTokens().get(4 + j).getBody();
+                       break; 
+                    }  
+                    
+                }
+                }
+                    
+                }//END IF
+                
+                else if(lines.get(i).getTokens().size() > 3 && lines.get(i).getTokens().get(j + 3).getBody().equals(".add.") && lines.get(i).getTokens().get(j + 4).isStringVariable()) {
+                    //Save Data
+                if(!doesStringExist(i,j)) {  
+                String additionString = "";
+                for(int k = 0; k < strings.size() ;k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j + 2).getBody().equals(strings.get(k).name)) {
+                       additionString += strings.get(k).value;
+                    }
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j + 4).getBody().equals(strings.get(k).name)) {
+                       additionString += strings.get(k).value;
+                       break;
+                    }
+                }
+                StringVariable a = new StringVariable(); 
+                a.name = lines.get(i + 0).getTokens().get(j).getBody();
+                a.value = additionString;
+                strings.add(a);
+                }
+                else {
+                      String additionString = "";
+                      for(int k = 0; k < strings.size() ;k++){
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(j).getBody().equals(strings.get(k).name)) {
+                       strings.get(k).name = lines.get(i + 0).getTokens().get(j).getBody();
+                      
+                    for(int a = 0; k < strings.size() ;a++){
+                    if(strings.size() >= a && lines.get(i + 0).getTokens().get(j + 2).getBody().equals(strings.get(a).name))
+                       additionString += strings.get(a).value;
+                    if(strings.size() >= a && lines.get(i + 0).getTokens().get(j + 4).getBody().equals(strings.get(a).name)) {
+                       additionString += strings.get(a).value;
+                       break;
+                        }
+                    }
+                       
+                       strings.get(k).value = additionString;
+                       break; 
+                    }  
+                    
+                }
+                }
+                    
+                }//END IF
+                
+                else {
+                    //Save Data
+                if(!doesStringExist(i,j)) {
+                StringVariable a = new StringVariable();   
                 a.value = lines.get(i + 0).getTokens().get(2 + j).getBody();
                 a.name = lines.get(i + 0).getTokens().get(j).getBody();
+                
+                StringBuilder sb = new StringBuilder(a.value);
+                for(int k = 0; k < sb.length();k++){
+                    if(sb.charAt(k) == '"'){
+                    sb.deleteCharAt(k);
+                  }
+                }
+                a.value = sb.toString();
+                
                 strings.add(a);
                 }
                 else {
@@ -189,7 +299,9 @@ public class Code {
                     
                 }
                 }
-            }//Check Real
+                }//END IF
+                
+            }//Check String
                       
             x = true;
         }
@@ -211,26 +323,26 @@ public class Code {
                 System.out.println(lines.get(i + 0).getTokens().get(1 + j).getBody());
                 x = true;
             }
-            else if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isIntVariable()) {
+            else if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isVariable()) {
                 boolean isVariablePresent = false;
-                for(int k = 0; k < ints.size();k++){
-                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(ints.get(k).name)) {
+                for(int k = 0; k <= ints.size();k++){
+                    if(ints.size() > k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(ints.get(k).name)) {
                         System.out.println(ints.get(k).value);
                         x = true;
                         isVariablePresent = true;
                         break; 
                     }
                      }//FOR
-                for(int k = 0; k < reals.size();k++){
-                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(reals.get(k).name)) {
+                for(int k = 0; k <= reals.size();k++){
+                    if(reals.size() > k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(reals.get(k).name)) {
                         System.out.println(reals.get(k).value);
                         x = true;
                         isVariablePresent = true;
                         break; 
                     }
                      }//FOR
-                for(int k = 0; k < strings.size();k++){
-                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(strings.get(k).name)) {
+                for(int k = 0; k <= strings.size();k++){
+                    if(strings.size() > k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(strings.get(k).name)) {
                         System.out.println(strings.get(k).value);
                         x = true;
                         isVariablePresent = true;
@@ -393,6 +505,11 @@ public class Code {
                         a = reals.get(k);
                        break; 
                     }
+                    else if (reals.size() >= k && lines.get(i + 0).getTokens().get(j + 0).isNumber()){
+                        a.name = lines.get(i + 0).getTokens().get(j + 0).getBody();
+                        a.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 0).getBody());
+                        break;
+                    }
                     
             }//FOR
             
@@ -401,6 +518,12 @@ public class Code {
                         b = reals.get(k);
                        break; 
                     } 
+                    else if (reals.size() >= k && lines.get(i + 0).getTokens().get(j + 2).isNumber()){
+                        b.name = lines.get(i + 0).getTokens().get(j + 2).getBody();
+                        b.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 2).getBody());
+                        break;
+                    }
+                    
             }//FOR
             
              for(int k = 0; k < ints.size() ;k++){
@@ -408,6 +531,11 @@ public class Code {
                         a.value = 0.0 + ints.get(k).value;
                         a.name = ints.get(k).name;
                        break; 
+                    }
+                    else if (ints.size() >= k && lines.get(i + 0).getTokens().get(j + 0).isNumber()){
+                        a.name = lines.get(i + 0).getTokens().get(j + 0).getBody();
+                        a.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 0).getBody());
+                        break;
                     }
                     
             }//FOR
@@ -418,6 +546,11 @@ public class Code {
                         b.name = ints.get(k).name;
                        break; 
                     } 
+                    else if (ints.size() >= k && lines.get(i + 0).getTokens().get(j + 2).isNumber()){
+                        b.name = lines.get(i + 0).getTokens().get(j + 2).getBody();
+                        b.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 2).getBody());
+                        break;
+                    }
             }//FOR
                     
              // System.out.println(a.value);
@@ -477,6 +610,11 @@ public class Code {
                         a = strings.get(k);
                        break; 
                     }
+                     else if (strings.size() >= k && lines.get(i + 0).getTokens().get(j + 0).isString()){
+                        b.name = lines.get(i + 0).getTokens().get(j + 0).getBody();
+                        b.value = lines.get(i + 0).getTokens().get(j + 0).getBody();
+                        break;
+                    }
             }//FOR
             
             for(int k = 0; k < strings.size() ;k++){
@@ -484,6 +622,11 @@ public class Code {
                         b = strings.get(k);
                        break; 
                     } 
+                       else if (strings.size() >= k && lines.get(i + 0).getTokens().get(j + 2).isString()){
+                        b.name = lines.get(i + 0).getTokens().get(j + 2).getBody();
+                        b.value = lines.get(i + 0).getTokens().get(j + 2).getBody();
+                        break;
+                    }
             }//FOR
                     
             if(a.name == "" || b.name == ""){
@@ -496,7 +639,7 @@ public class Code {
                     
             //Check Comparisons
             if(middle.equals(".eq.")) {
-                x = (a.value == b.value);
+                x = (a.value.contains(b.value)) || (b.value.contains(a.value));
             }
             else if(middle.equals(".ne.")) {
                 x = (a.value != b.value);
@@ -616,36 +759,7 @@ public class Code {
                     }              
                     
                 }//FOR
-            return forStatus
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    ;
+            return forStatus;
     }
             
     public void endProgram(){
@@ -675,7 +789,7 @@ public class Code {
             
         //Check if error from Compilation
         for(int i = 0; i < lines.size();i++){
-            
+        //    System.out.println(i + 1);
             //Execute Code
         display = false;
             if(!syntaxError && !error) {
@@ -697,6 +811,11 @@ public class Code {
             }
               
         }//FOR
+        
+          //   System.out.println(strings.size());
+            // for(int p = 0; p<strings.size();p++)
+             //System.out.println(strings.get(p).name);
+        
         
         if(syntaxError) {
             System.out.println();

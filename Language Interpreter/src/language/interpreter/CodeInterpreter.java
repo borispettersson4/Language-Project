@@ -58,14 +58,21 @@ public class CodeInterpreter {
       String[] tokens = aString.split(" +");
       
       for(int i = 0; i < tokens.length ; i++) {
+        //  System.out.println(tokens[i]);
           if(tokens[i].charAt(0) != '"') {
           if(!tokens[i].equals("")) 
           aLine.getTokens().add(new Identifier(tokens[i]));
           }
           else
               for(int j = 1; j < tokens.length; j++) {
-              
-                  if(tokens[i].charAt(tokens[i].length() - 1) == '"' && tokens[i].charAt(0) == '"') {
+                 
+                   if(tokens.length > i + 1 && tokens[i].charAt(0) == '"' && tokens[i].endsWith('"' + "")) {
+                      aLine.getTokens().add(new Identifier(tokens[i] + " " + tokens[i + 1]));
+                      i += 2;
+                      break;
+                  }
+                         
+                  else if(tokens[i].charAt(tokens[i].length() - 1) == '"' && tokens[i].charAt(0) == '"') {
                       aLine.getTokens().add(new Identifier(tokens[i]));
                     //  i += j;
                       break;
@@ -86,11 +93,13 @@ public class CodeInterpreter {
                   
               }
          
-       }
+       } //FINAL FOR
+      
+                    
       
    //   for(int i = 0; i < tokens.length ; i++)
-           //    if(aLine.getTokens().size() > i)
-           //       System.out.println(aLine.getTokens().get(i).getBody());
+     //          if(aLine.getTokens().size() > i)
+       //           System.out.println(aLine.getTokens().get(i).getBody());
    
       aLine.checkSyntax();
     
