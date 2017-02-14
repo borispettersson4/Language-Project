@@ -320,7 +320,12 @@ public class Code {
             }
             
             else if(lines.get(i + 0).getTokens().size() > 1 && ints.size() >= 1 && lines.get(i + 0).getTokens().get(1 + j).isString()) {
-                System.out.println(lines.get(i + 0).getTokens().get(1 + j).getBody());
+                String thisString = "";              
+                for(int k = 1;k < lines.get(i + 0).getTokens().get(1 + j).getBody().length() - 1;k++) {
+                    thisString += lines.get(i + 0).getTokens().get(1 + j).getBody().charAt(k);
+                }
+                
+                System.out.println(thisString);
                 x = true;
             }
             else if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isVariable()) {
