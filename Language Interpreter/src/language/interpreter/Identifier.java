@@ -333,6 +333,10 @@ public class Identifier {
       return ((isInteger() || isIntegerWithExponent() || isDouble() || (isVariable() && (variableType() == 1 || variableType() == 2))));
   }
   
+  public boolean isSoleNumber() {
+      return ((isInteger() || isIntegerWithExponent() || isDouble()));
+  }
+  
 
 
  

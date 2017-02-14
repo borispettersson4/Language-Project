@@ -494,7 +494,7 @@ public class Code {
     boolean conditionalPart(int i, int j){
         boolean x = false;
         
-        if((lines.get(i + 0).getTokens().get(j + 0).isIntVariable() || lines.get(i + 0).getTokens().get(j + 0).isRealVariable()) && (lines.get(i + 0).getTokens().get(j + 2).isIntVariable() || lines.get(i + 0).getTokens().get(j + 2).isRealVariable())) {
+         if((lines.get(i + 0).getTokens().get(j + 0).isSoleNumber() || lines.get(i + 0).getTokens().get(j + 0).isIntVariable() || lines.get(i + 0).getTokens().get(j + 0).isRealVariable()) && (lines.get(i + 0).getTokens().get(j + 2).isSoleNumber() || lines.get(i + 0).getTokens().get(j + 2).isIntVariable() || lines.get(i + 0).getTokens().get(j + 2).isRealVariable())) {
             
             RealVariable a = new RealVariable();
             RealVariable b = new RealVariable();
@@ -504,27 +504,23 @@ public class Code {
                     if(reals.size() >= k && lines.get(i + 0).getTokens().get(j + 0).getBody().equals(reals.get(k).name)) {
                         a = reals.get(k);
                        break; 
-                    }
-                    else if (reals.size() >= k && lines.get(i + 0).getTokens().get(j + 0).isNumber()){
+                    }  
+            }//FOR
+                  if (lines.get(i + 0).getTokens().get(j + 0).isSoleNumber()){
                         a.name = lines.get(i + 0).getTokens().get(j + 0).getBody();
                         a.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 0).getBody());
-                        break;
                     }
-                    
-            }//FOR
             
             for(int k = 0; k < reals.size() ;k++){
                     if(reals.size() >= k && lines.get(i + 0).getTokens().get(j + 2).getBody().equals(reals.get(k).name)) {
                         b = reals.get(k);
                        break; 
-                    } 
-                    else if (reals.size() >= k && lines.get(i + 0).getTokens().get(j + 2).isNumber()){
+                    }     
+            }//FOR
+                  if (lines.get(i + 0).getTokens().get(j + 2).isSoleNumber()){
                         b.name = lines.get(i + 0).getTokens().get(j + 2).getBody();
                         b.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 2).getBody());
-                        break;
                     }
-                    
-            }//FOR
             
              for(int k = 0; k < ints.size() ;k++){
                     if(ints.size() >= k && lines.get(i + 0).getTokens().get(j + 0).getBody().equals(ints.get(k).name)) {
@@ -532,12 +528,6 @@ public class Code {
                         a.name = ints.get(k).name;
                        break; 
                     }
-                    else if (ints.size() >= k && lines.get(i + 0).getTokens().get(j + 0).isNumber()){
-                        a.name = lines.get(i + 0).getTokens().get(j + 0).getBody();
-                        a.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 0).getBody());
-                        break;
-                    }
-                    
             }//FOR
             
             for(int k = 0; k < ints.size() ;k++){
@@ -546,15 +536,10 @@ public class Code {
                         b.name = ints.get(k).name;
                        break; 
                     } 
-                    else if (ints.size() >= k && lines.get(i + 0).getTokens().get(j + 2).isNumber()){
-                        b.name = lines.get(i + 0).getTokens().get(j + 2).getBody();
-                        b.value = Double.parseDouble(lines.get(i + 0).getTokens().get(j + 2).getBody());
-                        break;
-                    }
             }//FOR
                     
-             // System.out.println(a.value);
-             // System.out.println(b.value);
+            // System.out.println(a.value);
+          //   System.out.println(b.value);
             
             if(a.name.equals("") || b.name.equals("")){
                 if(display && conditionState) {
@@ -696,7 +681,7 @@ public class Code {
         if(lines.get(i + 0).isIfStatement(0)){
             boolean forState = false;
           if(conditionalStatement(i + 0, 1)){
-         //     System.out.println("TRUE");
+            //  System.out.println("TRUE");
               if(doPrint(i,offsetNumber) || doAssignment(i,offsetNumber)){
                x = true;
                forState = true;
