@@ -314,8 +314,8 @@ public class Code {
         
         if(lines.get(i + 0).checkPrintStatement(j)) {
             
-            if(lines.get(i + 0).getTokens().size() < 1) {
-                System.out.println("");
+            if(lines.get(i + 0).getTokens().size() <= 1 + j) {
+                System.out.println();
                 x = true;
             }
             
@@ -403,18 +403,18 @@ public class Code {
         return x;
     }
     
-    public boolean doRead(int i) {
+    public boolean doRead(int i, int j) {
         boolean x = false;
         
         if(lines.get(i + 0).isReadStatement()){
            
             //If reading an Int
-            if(lines.get(i + 0).getTokens().get(1).isIntVariable()){
+            if(lines.get(i + 0).getTokens().get(1 + j).isIntVariable()){
                 
                 
                 boolean forStatus = false;
             for(int k = 0; k < ints.size() ;k++){
-                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(1).getBody().equals(ints.get(k).name)) {
+                    if(ints.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(ints.get(k).name)) {
                          Scanner input = new Scanner(System.in);    
                          ints.get(k).value = input.nextInt();
                          forStatus = true;
@@ -428,7 +428,7 @@ public class Code {
                          Scanner input = new Scanner(System.in); 
                          IntegerVariable a = new IntegerVariable();
                          a.value = input.nextInt();
-                         a.name = lines.get(i + 0).getTokens().get(1).getBody();
+                         a.name = lines.get(i + 0).getTokens().get(1 + j).getBody();
                          ints.add(a);
                         x = true;
                     }
@@ -436,12 +436,12 @@ public class Code {
             } //IF 
             
             //If reading an Reals
-            if(lines.get(i + 0).getTokens().get(1).isRealVariable()){
+            if(lines.get(i + 0).getTokens().get(1 + j).isRealVariable()){
                 
                 
                 boolean forStatus = false;
             for(int k = 0; k < reals.size() ;k++){
-                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(1).getBody().equals(reals.get(k).name)) {
+                    if(reals.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(reals.get(k).name)) {
                          Scanner input = new Scanner(System.in);    
                          reals.get(k).value = input.nextDouble();
                          forStatus = true;
@@ -455,7 +455,7 @@ public class Code {
                          Scanner input = new Scanner(System.in); 
                          RealVariable a = new RealVariable();
                          a.value = input.nextDouble();
-                         a.name = lines.get(i + 0).getTokens().get(1).getBody();
+                         a.name = lines.get(i + 0).getTokens().get(1 + j).getBody();
                          reals.add(a);
                         x = true;
                     }
@@ -463,11 +463,11 @@ public class Code {
             } //IF 
             
             //If reading a String
-            if(lines.get(i + 0).getTokens().get(1).isStringVariable()){
+            if(lines.get(i + 0).getTokens().get(1 + j).isStringVariable()){
                 
                 boolean forStatus = false;
             for(int k = 0; k < strings.size() ;k++){
-                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(1).getBody().equals(strings.get(k).name)) {
+                    if(strings.size() >= k && lines.get(i + 0).getTokens().get(1 + j).getBody().equals(strings.get(k).name)) {
                          Scanner input = new Scanner(System.in);    
                          strings.get(k).value = input.nextLine();
                          forStatus = true;
@@ -481,7 +481,7 @@ public class Code {
                          Scanner input = new Scanner(System.in); 
                          StringVariable a = new StringVariable();
                          a.value = input.nextLine();
-                         a.name = lines.get(i + 0).getTokens().get(1).getBody();
+                         a.name = lines.get(i + 0).getTokens().get(1 + j).getBody();
                          strings.add(a);
                         x = true;
                     }
@@ -687,7 +687,7 @@ public class Code {
             boolean forState = false;
           if(conditionalStatement(i + 0, 1)){
             //  System.out.println("TRUE");
-              if(doPrint(i,offsetNumber) || doAssignment(i,offsetNumber)){
+              if(doPrint(i,offsetNumber) || doAssignment(i,offsetNumber) || doRead(i,offsetNumber)){
                x = true;
                forState = true;
               }    
@@ -785,7 +785,7 @@ public class Code {
             if(!syntaxError && !error) {
                 doAssignment(i,0);
                 doPrint(i,0);          
-                doRead(i);
+                doRead(i, 0);
                 doIfThen(i);
               if(error) {
                  
@@ -794,7 +794,7 @@ public class Code {
         display = true;
         doAssignment(i,0);
         doPrint(i,0);
-        doRead(i);
+        doRead(i, 0);
         doIfThen(i);
               }
             
