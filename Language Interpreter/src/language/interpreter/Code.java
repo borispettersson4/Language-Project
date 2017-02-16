@@ -404,10 +404,8 @@ public class Code {
     }
     
     public boolean doRead(int i, int j) {
-        boolean x = false;
-        
-        if(lines.get(i + 0).isReadStatement()){
-           
+        boolean x = false;      
+        if(lines.get(i + 0).checkReadStatement(j)){
             //If reading an Int
             if(lines.get(i + 0).getTokens().get(1 + j).isIntVariable()){
                 
@@ -687,7 +685,7 @@ public class Code {
             boolean forState = false;
           if(conditionalStatement(i + 0, 1)){
             //  System.out.println("TRUE");
-              if(doPrint(i,offsetNumber) || doAssignment(i,offsetNumber) || doRead(i,offsetNumber)){
+              if( doRead(i,offsetNumber) || doPrint(i,offsetNumber) || doAssignment(i,offsetNumber)){
                x = true;
                forState = true;
               }    

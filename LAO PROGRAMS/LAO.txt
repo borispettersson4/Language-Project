@@ -32,7 +32,7 @@ print
 print 
 print 
 if b .gt. 7 .and. b .le. 9 .or. b .eq. 8 then print "a = "
-if b .gt. 7 .and. b .le. 9 .or. b .eq. 8 then print a 
+if b .gt. 7 .and. b .le. 9 .or. b .eq. 8 then read a 
 print 
 print 
 end.
