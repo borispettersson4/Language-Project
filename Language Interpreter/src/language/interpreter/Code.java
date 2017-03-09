@@ -314,18 +314,20 @@ public class Code {
         
         if(lines.get(i + 0).checkPrintStatement(j)) {
             
-            if(lines.get(i + 0).getTokens().size() <= 1 + j) {
+            if(lines.get(i + 0).getTokens().size() <= 2 + j) {
                 System.out.println();
                 x = true;
-            }
+           }
             
-            else if(lines.get(i + 0).getTokens().size() > 1 && ints.size() >= 1 && lines.get(i + 0).getTokens().get(1 + j).isString()) {
+           if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isString()) {
                 String thisString = "";              
-                for(int k = 1;k < lines.get(i + 0).getTokens().get(1 + j).getBody().length() - 1;k++) {
-                    thisString += lines.get(i + 0).getTokens().get(1 + j).getBody().charAt(k);
+                 StringBuilder sb = new StringBuilder(lines.get(i + 0).getTokens().get(1 + j).getBody());
+                for(int k = 0; k < sb.length();k++){
+                    if(sb.charAt(k) == '"'){
+                    sb.deleteCharAt(k);
+                  }
                 }
-                
-                System.out.println(thisString);
+                    System.out.println(sb.toString());
                 x = true;
             }
             else if(lines.get(i + 0).getTokens().size() > 1 && lines.get(i + 0).getTokens().get(1 + j).isVariable()) {
@@ -558,7 +560,7 @@ public class Code {
               //  System.out.println(x);
             }
             else if(middle.equals(".ne.")) {
-                x = (a.value.equals(b.value));
+                x = (!a.value.equals(b.value));
              //   System.out.println(a.value != b.value);
             }
             else if(middle.equals(".lt.")) {

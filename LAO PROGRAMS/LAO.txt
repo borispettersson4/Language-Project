@@ -1,38 +1,9 @@
-w = "HOLA"
-y = " MUNDO"
-if 3 .gt. 2 then a = 2 .add. 1 .add. 3 .mul. 4
-z = w .add. y
-print z
+print "Entre un entero"
+read a
 print
-print
-if z .eq. "HOLA MUNDO" then print z
-cc = 0 
-c2 = 9 
-c = 4 
-print 
-print 
-if c .eq. 4 then a = c .add. 3 .div. 3
-n = 3.0 .add. 2 .mul. c 
-print "n = " 
-print n 
-print 
-print 
-a = 3 .mul. c .add. 2 
-print "a = "  
-print a 
-print 
-print 
-print "ENTER AN INTEGER NUMBER: " 
-read b 
-print 
-print 
-print "YOU ENTERED: " 
-print b 
-print 
-print 
-print 
-if b .gt. 7 .and. b .le. 9 .or. b .eq. 8 then print "a = "
-if b .gt. 7 .and. b .le. 9 .or. b .eq. 8 then read a 
-print 
-print 
+print "Entre un entero"
+read b
+c = a .add. b .mul. 5
+if a .gt. b .and. b .ne. 0 then c = a .sub. b
+if a .gt. b .and. b .ne. 0 then print c
 end.
